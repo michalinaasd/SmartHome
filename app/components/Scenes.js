@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 import SceneItem from './SceneItem';
 
 const Scenes = () => {
@@ -8,12 +9,16 @@ const Scenes = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Scenes</Text>
-      <View style={styles.scenes}>
+      <ScrollView
+        style={styles.scenes}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+      >
         <SceneItem icon="baguette" name="morning" />
         <SceneItem icon="bat" name="night" />
         <SceneItem icon="bike" name="outside" />
         <SceneItem icon="bike" name="outside" />
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -27,7 +32,6 @@ const styles = StyleSheet.create({
   },
   scenes: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   title: {
     fontSize: 25,
