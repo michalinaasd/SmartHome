@@ -20,8 +20,8 @@ const RoomItem = ({name}) => {
 const styles = StyleSheet.create({
   roomsItem: {
     width: 180,
-    height: 170,
-    marginVertical: 5,
+    height: 160,
+    marginVertical: 10,
     elevation: 10,
   },
 });

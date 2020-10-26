@@ -25,7 +25,7 @@ const Header = () => {
         <Text style={{fontSize: 18}}>Lorem ipsum dolor sit amet</Text>
       </View>
       <View style={styles.logo}>
-        <MaterialCommunityIcons name="home" color="white" size={100} />
+        <MaterialCommunityIcons name="home" color="white" size={80} />
       </View>
     </View>
   );
@@ -34,7 +34,7 @@ const Header = () => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: '23%',
+    height: '25%',
     backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -45,9 +45,11 @@ const styles = StyleSheet.create({
   logo: {
     width: 100,
     height: 100,
-    backgroundColor: '#a4c0a1',
+    backgroundColor: '#009387',
     borderRadius: 50,
     elevation: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

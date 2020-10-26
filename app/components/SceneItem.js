@@ -5,7 +5,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const SceneItem = ({icon, name}) => {
   return (
     <View style={styles.container}>
-      <MaterialCommunityIcons name={icon} color="white" size={60} />
+      <MaterialCommunityIcons name={icon} color="white" size={45} />
       <Text style={styles.name}>{name}</Text>
     </View>
   );
@@ -13,18 +13,19 @@ const SceneItem = ({icon, name}) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 120,
-    height: 120,
-    backgroundColor: '#a4c0a1',
+    width: 110,
+    height: 100,
+    backgroundColor: '#009387',
     borderRadius: 20,
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 20,
     marginRight: 5,
-    elevation: 10,
+    elevation: 5,
   },
   name: {
-    fontSize: 20,
+    fontSize: 15,
+    color: 'white',
   },
 });
 

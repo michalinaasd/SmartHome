@@ -6,11 +6,11 @@ import Rooms from './Rooms';
 
 const HomeScreen = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Header />
       <Scenes />
       <Rooms />
-    </SafeAreaView>
+    </View>
   );
 };
 

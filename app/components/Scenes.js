@@ -20,7 +20,7 @@ const Scenes = () => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: '23%',
+    height: '20%',
     backgroundColor: 'white',
     flexDirection: 'column',
     paddingHorizontal: 10,
