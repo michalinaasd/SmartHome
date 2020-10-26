@@ -17,7 +17,7 @@ const Scenes = () => {
         <SceneItem icon="baguette" name="morning" />
         <SceneItem icon="bat" name="night" />
         <SceneItem icon="bike" name="outside" />
-        <SceneItem icon="bike" name="outside" />
+        <SceneItem icon="plus" name="add" />
       </ScrollView>
     </View>
   );
@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '20%',
-    backgroundColor: 'white',
     flexDirection: 'column',
     paddingHorizontal: 10,
   },

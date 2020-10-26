@@ -1,13 +1,20 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const SceneItem = ({icon, name}) => {
   return (
-    <View style={styles.container}>
-      <MaterialCommunityIcons name={icon} color="white" size={45} />
-      <Text style={styles.name}>{name}</Text>
-    </View>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        console.log(name + ' Pressed');
+      }}
+    >
+      <View style={styles.container}>
+        <MaterialCommunityIcons name={icon} color="white" size={45} />
+        <Text style={styles.name}>{name}</Text>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 

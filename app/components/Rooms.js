@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '65%',
-    backgroundColor: 'white',
     flexDirection: 'column',
     paddingHorizontal: 10,
   },
