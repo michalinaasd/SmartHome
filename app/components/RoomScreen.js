@@ -3,10 +3,10 @@ import {StyleSheet, View} from 'react-native';
 import RoomScreenControlPanel from './RoomScreenControlPanel';
 import RoomScreenHeader from './RoomScreenHeader';
 
-const RoomScreen = () => {
+const RoomScreen = ({name}) => {
   return (
     <View style={styles.container}>
-      <RoomScreenHeader name="kitchen" />
+      <RoomScreenHeader name={name} />
       <RoomScreenControlPanel />
     </View>
   );
