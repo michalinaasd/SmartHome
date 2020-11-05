@@ -2,7 +2,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import BottomMenu from './app/components/BottomMenu';
-import HomeScreen from './app/components/HomeScreen';
 
 const Drawer = createDrawerNavigator();
 
