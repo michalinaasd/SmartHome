@@ -6,8 +6,8 @@ import SectionTitle from './SectionTitle';
 const RoomScreenTemperature = () => {
   return (
     <View style={styles.container}>
-      <SectionTitle title="Temperature" />
       <View style={{flexDirection: 'column'}}>
+        <SectionTitle title="Set Temperature" />
         <View
           style={{
             flexDirection: 'row',
@@ -31,15 +31,23 @@ const RoomScreenTemperature = () => {
           </View>
         </View>
         <Text style={styles.temperature}>25°C</Text>
+        <SectionTitle title="Current Temperature" />
+        <Text
+          style={{
+            fontSize: 40,
+            textAlign: 'center',
+            marginVertical: 15,
+          }}
+        >
+          23°C
+        </Text>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 2,
-  },
+  container: {flex: 4},
   thermometerContainer: {
     width: 90,
     height: 90,

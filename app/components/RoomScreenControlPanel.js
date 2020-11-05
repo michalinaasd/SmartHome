@@ -9,19 +9,6 @@ const RoomScreenControlPanel = () => {
     <View style={styles.container}>
       <RoomScreenDevices />
       <RoomScreenTemperature />
-      <View style={{flex: 1.5}}>
-        <SectionTitle title="Humidity" />
-        <Text
-          style={{
-            textAlign: 'center',
-            fontSize: 40,
-            fontWeight: 'bold',
-            paddingTop: 15,
-          }}
-        >
-          45%
-        </Text>
-      </View>
     </View>
   );
 };

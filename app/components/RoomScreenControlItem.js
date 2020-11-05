@@ -29,8 +29,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   name: {
-    fontSize: 18,
-    marginHorizontal: 5,
+    fontSize: 15,
     textAlign: 'center',
   },
 });

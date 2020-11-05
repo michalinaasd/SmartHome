@@ -9,8 +9,8 @@ const RoomScreenDevices = () => {
       <SectionTitle title="Devices" />
       <View style={styles.iconsContainer}>
         <RoomScreenControlItem
-          name="Ceiling Lamp"
-          icon="ceiling-light"
+          name="Temperature"
+          icon="thermometer"
           color="#009387"
         />
         <RoomScreenControlItem
@@ -28,7 +28,6 @@ const RoomScreenDevices = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 2,
-    paddingBottom: 20,
   },
   iconsContainer: {
     flexDirection: 'row',
