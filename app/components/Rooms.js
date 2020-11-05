@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import RoomItem from './RoomItem';
+import {rooms} from './constants';
 
 const Rooms = ({navigation}) => {
-  const rooms = ['kitchen', 'living room', 'bedroom', 'bathroom'];
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Rooms</Text>
