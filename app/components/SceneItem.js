@@ -3,14 +3,10 @@ import {View, StyleSheet, Text} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const SceneItem = ({icon, name}) => {
+const SceneItem = ({icon, name, onPress, selected}) => {
   return (
-    <TouchableWithoutFeedback
-      onPress={() => {
-        console.log(name + ' Pressed');
-      }}
-    >
-      <View style={styles.container}>
+    <TouchableWithoutFeedback onPress={onPress}>
+      <View style={[styles.container, selected && styles.selected]}>
         <MaterialCommunityIcons name={icon} color="white" size={45} />
         {name && <Text style={styles.name}>{name}</Text>}
       </View>
@@ -32,6 +28,10 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 15,
     color: 'white',
+  },
+  selected: {
+    borderWidth: 10,
+    borderColor: 'white',
   },
 });
 
