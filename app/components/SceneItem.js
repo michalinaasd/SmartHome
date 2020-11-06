@@ -11,8 +11,12 @@ const SceneItem = ({icon, name}) => {
       }}
     >
       <View style={styles.container}>
-        <MaterialCommunityIcons name={icon} color="white" size={45} />
-        <Text style={styles.name}>{name}</Text>
+        <MaterialCommunityIcons
+          name={icon}
+          color="white"
+          size={name ? 45 : 100}
+        />
+        {name && <Text style={styles.name}>{name}</Text>}
       </View>
     </TouchableWithoutFeedback>
   );
