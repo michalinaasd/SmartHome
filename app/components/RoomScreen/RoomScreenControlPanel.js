@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import RoomScreenDevices from './RoomScreenDevices';
 import RoomScreenTemperature from './RoomScreenTemperature';
-import SectionTitle from './SectionTitle';
+import SectionTitle from '../SectionTitle';
 
 const RoomScreenControlPanel = () => {
   return (
