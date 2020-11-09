@@ -1,16 +1,20 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import RoomItem from './RoomItem';
+import {rooms} from './constants';
 
-const Rooms = () => {
+const Rooms = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Rooms</Text>
       <View style={styles.rooms}>
-        <RoomItem name="kitchen" />
-        <RoomItem name="living room" />
-        <RoomItem name="bedroom" />
-        <RoomItem name="bathroom" />
+        {rooms.map((name) => (
+          <RoomItem
+            key={name}
+            name={name}
+            onPress={() => navigation.navigate({name})}
+          />
+        ))}
       </View>
     </View>
   );
