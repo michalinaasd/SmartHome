@@ -1,12 +1,16 @@
 import React from 'react';
-import {View, Button, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import {View, Button, StyleSheet, Text} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
-const AppButton = ({onPress, title}) => {
+const AppButton = ({onPress, title, disabled}) => {
   return (
     <TouchableWithoutFeedback
       onPress={onPress}
-      style={styles.appButtonContainer}
+      style={[
+        styles.appButtonContainer,
+        disabled && {opacity: 0.5, backgroundColor: 'gray'},
+      ]}
+      disabled={disabled}
     >
       <Text style={styles.appButtonText}>{title}</Text>
     </TouchableWithoutFeedback>

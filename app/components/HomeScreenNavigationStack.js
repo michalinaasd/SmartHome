@@ -2,7 +2,9 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from './HomeScreen';
 import RoomScreen from './RoomScreen';
+import CreateSceneIcon from './CreateSceneIcon';
 import {rooms} from './constants';
+import CreateSceneName from './CreateSceneName';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +21,16 @@ const HomeScreenNavigationStack = () => {
           {(props) => <RoomScreen name={name} />}
         </Stack.Screen>
       ))}
+      <Stack.Screen
+        name="create-scene"
+        component={CreateSceneIcon}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="create-scene-name"
+        component={CreateSceneName}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };

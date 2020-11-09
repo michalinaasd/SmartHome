@@ -8,7 +8,7 @@ const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Header />
-      <Scenes />
+      <Scenes navigation={navigation} />
       <Rooms navigation={navigation} />
     </View>
   );

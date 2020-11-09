@@ -5,7 +5,7 @@ import SceneItem from './SceneItem';
 import {scenesIcons} from './constants';
 import AppButton from './AppButton';
 
-const CreateSceneScreen = () => {
+const CreateSceneIcon = ({navigation}) => {
   const [selectedIcon, setSelectedIcon] = useState('');
   return (
     <View style={styles.container}>
@@ -26,9 +26,13 @@ const CreateSceneScreen = () => {
       </View>
       <AppButton
         onPress={() => {
-          console.log(`selected ${selectedIcon} `);
+          selectedIcon &&
+            navigation.navigate('create-scene-name', {
+              selectedIcon: selectedIcon,
+            });
         }}
         title="Next"
+        disabled={!selectedIcon}
       />
     </View>
   );
@@ -49,4 +53,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateSceneScreen;
+export default CreateSceneIcon;
