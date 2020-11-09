@@ -1,25 +1,16 @@
 import React from 'react';
-import {View, StyleSheet, ImageBackground, Text} from 'react-native';
+import {StyleSheet, ImageBackground} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {roomsImages} from './constants';
 
-const RoomItem = ({name}) => {
-  const rooms = {
-    kitchen: require('../assets/kitchen.jpg'),
-    'living room': require('../assets/living-room.jpg'),
-    bathroom: require('../assets/bathroom.jpg'),
-    bedroom: require('../assets/bedroom.jpg'),
-  };
+const RoomItem = ({name, onPress}) => {
   return (
-    <TouchableWithoutFeedback
-      onPress={() => {
-        console.log(name + ' Pressed');
-      }}
-    >
+    <TouchableWithoutFeedback onPress={onPress}>
       <ImageBackground
         style={styles.roomsItem}
         imageStyle={{borderRadius: 20}}
-        source={rooms[name]}
-      ></ImageBackground>
+        source={roomsImages[name]}
+      />
     </TouchableWithoutFeedback>
   );
 };
