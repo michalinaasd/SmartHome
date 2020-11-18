@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import SectionTitle from './SectionTitle';
+import SectionTitle from '../SectionTitle';
 
 const RoomScreenTemperature = () => {
   return (

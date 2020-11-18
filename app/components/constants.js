@@ -1,3 +1,20 @@
+export const scenesIcons = [
+  'bike',
+  'bat',
+  'baguette',
+  'bell',
+  'briefcase',
+  'candle',
+  'brightness-3',
+  'white-balance-sunny',
+  'hot-tub',
+  'weather-night',
+  'foot-print',
+  'ghost',
+  'glass-cocktail',
+  'heart',
+  'run-fast',
+];
 export const rooms = ['kitchen', 'living room', 'bedroom', 'bathroom'];
 export const roomsImages = {
   kitchen: require('../assets/kitchen.jpg'),

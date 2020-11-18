@@ -3,7 +3,7 @@ import {View, StyleSheet, Text} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import SceneItem from './SceneItem';
 
-const Scenes = () => {
+const Scenes = ({navigation}) => {
   //caly komponent powinien dać się swipować horyzontalnie, wyświetlać 3 itemy jednocześnie
   //ostatnim itemem będzie komponent do dodawania nowych scenes
   return (
@@ -17,7 +17,11 @@ const Scenes = () => {
         <SceneItem icon="baguette" name="morning" />
         <SceneItem icon="bat" name="night" />
         <SceneItem icon="bike" name="outside" />
-        <SceneItem icon="plus" name="add" />
+        <SceneItem
+          icon="plus"
+          name="add"
+          onPress={() => navigation.navigate('create-scene')}
+        />
       </ScrollView>
     </View>
   );

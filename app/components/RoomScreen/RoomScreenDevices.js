@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import RoomScreenControlItem from './RoomScreenControlItem';
-import SectionTitle from './SectionTitle';
+import SectionTitle from '../SectionTitle';
 
 const RoomScreenDevices = () => {
   return (
