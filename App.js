@@ -6,6 +6,7 @@ import LoginPage from './app/components/LoginPage';
 import { render } from 'react-dom';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createStackNavigator } from '@react-navigation/stack';
+import BottomMenu from './app/components/BottomMenu';
 
 const Drawer = createDrawerNavigator();
 const AuthContext = React.createContext();

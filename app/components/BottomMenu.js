@@ -1,6 +1,8 @@
 import React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import RoomScreen from './RoomScreen/RoomScreen';
+import HomeScreenNavigationStack from './HomeScreenNavigationStack';
 import HomeScreen from './HomeScreen';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -10,7 +12,7 @@ const BottomMenu = () => {
     <Tab.Navigator initialRouteName="Home" activeColor="#fff" shifting={true}>
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeScreenNavigationStack}
         options={{
           tabBarLabel: 'Home',
           tabBarColor: '#009387',
@@ -21,7 +23,7 @@ const BottomMenu = () => {
       />
       <Tab.Screen
         name="Stats"
-        component={HomeScreen}
+        component={RoomScreen}
         options={{
           tabBarLabel: 'Stats',
           tabBarColor: '#1f65ff',

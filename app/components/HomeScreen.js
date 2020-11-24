@@ -4,12 +4,12 @@ import Header from './Header';
 import Scenes from './Scenes';
 import Rooms from './Rooms';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Header />
-      <Scenes />
-      <Rooms />
+      <Scenes navigation={navigation} />
+      <Rooms navigation={navigation} />
     </View>
   );
 };
