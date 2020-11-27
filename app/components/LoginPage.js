@@ -16,7 +16,7 @@ import ApiService from '../api/ApiService';
 
 const { width: WIDTH } = Dimensions.get('window')
 
-const LoginPage = () => {
+const LoginPage = ({ navigation }) => {
 
     const [showPass, setShowPass] = useState(true);
     const [press, setPress] = useState(false);
@@ -29,6 +29,7 @@ const LoginPage = () => {
     const login = () => {
         service.jwtCreate(username, password).then(response => {
             service.me().then(response => {
+                navigation.navigate('Home');
             })
         }).catch(reason => {
             // TODO: Walidacja formularza i walidacja 401 forbidden
@@ -91,7 +92,7 @@ const LoginPage = () => {
                     </View>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.buttonLoginTO} onPress={login.bind(this)}>
+            <TouchableOpacity style={styles.buttonLoginTO} onPress={login}>
                 <Text styles={styles.buttonLogin}>LOGIN</Text>
             </TouchableOpacity>
         </View>

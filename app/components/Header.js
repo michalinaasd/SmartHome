@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { user } from '../../App';
 
 const Header = () => {
+
+
   return (
     <View style={styles.container}>
       <View>
@@ -20,7 +23,7 @@ const Header = () => {
             fontWeight: '700',
           }}
         >
-          John!
+          {user.email}
         </Text>
         <Text style={{fontSize: 18}}>Lorem ipsum dolor sit amet</Text>
       </View>

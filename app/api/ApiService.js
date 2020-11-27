@@ -1,5 +1,10 @@
 
 import axios from 'axios';
+import { BehaviorSubject } from 'rxjs';
+
+export const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')));
+
+export const currentUser = currentUserSubject.asObservable();
 
 export default class ApiService {
     constructor() {
@@ -75,6 +80,7 @@ export default class ApiService {
             }).then(response => {
                 if (response.status == 200) {
                     localStorage.setItem('user', JSON.stringify(response.data));
+                    currentUserSubject.next(response.data);
 
                     resolve("Logged successfully");
                 }
