@@ -83,12 +83,7 @@ const LoginPage = ({ navigation }) => {
                 </TextInput>
                 <TouchableOpacity onPress={() => setShowPass(!showPass)} style={styles.iconEye}>
                     <View>
-                        {
-                            (press == false) && <AiOutlineEye size={30} />
-                        }
-                        {
-                            (press == true) && <AiOutlineEyeInvisible size={30} />
-                        }
+                        {press ? <AiOutlineEyeInvisible size={30}/> : <AiOutlineEye size={30}/>}
                     </View>
                 </TouchableOpacity>
             </View>
