@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 25,
     fontWeight: '700',
-    paddingBottom: 5,
+    paddingBottom: 16,
   },
 });
 
