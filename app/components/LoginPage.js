@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     StyleSheet,
     Text,
@@ -16,45 +16,20 @@ import ApiService from '../api/ApiService';
 
 const { width: WIDTH } = Dimensions.get('window')
 
-class LoginPage extends Component {
+const LoginPage = ({ navigation }) => {
+
+    const [showPass, setShowPass] = useState(true);
+    const [press, setPress] = useState(false);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
 
-    constructor() {
-        super();
-        
-        this.state = {
-            showPass: true,
-            press: false,
-            username: '',
-            password: ''
-        }
+    const service = new ApiService();
 
-        this.service = new ApiService();
-    }
-
-    updateLoginValue(e) {
-        this.setState({
-            username: e.target.value
-        });
-    }
-
-    updatePasswordValue(e) {
-        this.setState({
-            password: e.target.value
-        });
-    }
-
-    showPass = () => {
-        if (!this.state.press) {
-            this.setState({ showPass: false, press: true })
-        } else {
-            this.setState({ showPass: true, press: false })
-        }
-    }
-
-    login = () => {
-        this.service.jwtCreate(this.state.username, this.state.password).then(response => {
-            this.service.me().then(response => {
+    const login = () => {
+        service.jwtCreate(username, password).then(response => {
+            service.me().then(response => {
+                navigation.navigate('Home');
             })
         }).catch(reason => {
             // TODO: Walidacja formularza i walidacja 401 forbidden
@@ -69,61 +44,54 @@ class LoginPage extends Component {
         });
     }
 
-    render() {
-        return (
-            <View style={styles.backgroundContainer}>
-                <View style={styles.logoContainer}>
-                    <View style={styles.logoCircle}>
-                        <Image source={logo} style={styles.logo} />
-                    </View>
-                    <Text style={styles.logoText}>SMART HOME</Text>
+    return (
+        <View style={styles.backgroundContainer}>
+            <View style={styles.logoContainer}>
+                <View style={styles.logoCircle}>
+                    <Image source={logo} style={styles.logo} />
                 </View>
-                <View styles={styles.inputContainer}>
-                    <View style={styles.inputIcon}>
-                        <AiOutlineUser size={30} />
-                    </View>
-                    <TextInput
-                        name="email"
-                        theme={{ colors: { primary: 'orange' } }}
-                        style={styles.input}
-                        placeholder={'Username'}
-                        value={this.state.username}
-                        onChange={this.updateLoginValue.bind(this)}
-                        placeholderTextColor={'rgba(0,0,0,0.7)'}
-                        underlineColorAndroid={'transparent'} />
+                <Text style={styles.logoText}>SMART HOME</Text>
+            </View>
+            <View styles={styles.inputContainer}>
+                <View style={styles.inputIcon}>
+                    <AiOutlineUser size={30} />
                 </View>
-                <View styles={styles.inputContainer}>
-                    <View style={styles.inputIcon}>
-                        <RiLockPasswordLine size={30} />
-                    </View>
-                    <TextInput
-                        name="password"
-                        theme={{ colors: { primary: 'orange' } }}
-                        style={styles.input}
-                        value={this.state.password}
-                        onChange={this.updatePasswordValue.bind(this)}
-                        placeholder={'Password'}
-                        placeholderTextColor={'rgba(0,0,0,0.7)'}
-                        secureTextEntry={this.state.showPass}
-                        underlineColorAndroid={'transparent'}>
-                    </TextInput>
-                    <TouchableOpacity onPress={this.showPass.bind(this)} style={styles.iconEye}>
-                        <View>
-                            {
-                                (this.state.press == false) && <AiOutlineEye size={30} />
-                            }
-                            {
-                                (this.state.press == true) && <AiOutlineEyeInvisible size={30} />
-                            }
-                        </View>
-                    </TouchableOpacity>
+                <TextInput
+                    name="email"
+                    theme={{ colors: { primary: 'orange' } }}
+                    style={styles.input}
+                    placeholder={'Username'}
+                    value={username}
+                    onChange={e => setUsername(e.target.value)}
+                    placeholderTextColor={'rgba(0,0,0,0.7)'}
+                    underlineColorAndroid={'transparent'} />
+            </View>
+            <View styles={styles.inputContainer}>
+                <View style={styles.inputIcon}>
+                    <RiLockPasswordLine size={30} />
                 </View>
-                <TouchableOpacity style={styles.buttonLoginTO} onPress={this.login.bind(this)}>
-                    <Text styles={styles.buttonLogin}>LOGIN</Text>
+                <TextInput
+                    name="password"
+                    theme={{ colors: { primary: 'orange' } }}
+                    style={styles.input}
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    placeholder={'Password'}
+                    placeholderTextColor={'rgba(0,0,0,0.7)'}
+                    secureTextEntry={showPass}
+                    underlineColorAndroid={'transparent'}>
+                </TextInput>
+                <TouchableOpacity onPress={() => setShowPass(!showPass)} style={styles.iconEye}>
+                    <View>
+                        {press ? <AiOutlineEyeInvisible size={30}/> : <AiOutlineEye size={30}/>}
+                    </View>
                 </TouchableOpacity>
             </View>
-        );
-    }
+            <TouchableOpacity style={styles.buttonLoginTO} onPress={login}>
+                <Text styles={styles.buttonLogin}>LOGIN</Text>
+            </TouchableOpacity>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -169,6 +137,7 @@ const styles = StyleSheet.create({
         paddingLeft: 45,
         backgroundColor: 'rgba(255,255,255,0.35)',
         color: 'rgba(0,0,0,0.5)',
+        outline: 'none'
     },
     inputIcon: {
         position: 'absolute',
