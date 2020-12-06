@@ -1,13 +1,23 @@
-import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SectionTitle from '../SectionTitle';
 
 const RoomScreenTemperature = () => {
+
+  //TODO: pobieranie temperatury z czujnika i zadanej temperatury
+  const [currentTemperature, setCurrentTemperature] = useState(23);
+  const [targetTemperature, setTargetTemperature] = useState(25);
+
+  const changeTargetTemperature = (value) => {
+    setTargetTemperature(targetTemperature + parseInt(value));
+  }
+
   return (
     <View style={styles.container}>
-      <View style={{flexDirection: 'column'}}>
-        <SectionTitle title="Set Temperature" />
+      <View style={{ flexDirection: 'column', textAlign: 'center'}}>
+        <SectionTitle title="Set target temperature" />
         <View
           style={{
             flexDirection: 'row',
@@ -16,9 +26,12 @@ const RoomScreenTemperature = () => {
             paddingHorizontal: 60,
           }}
         >
-          <View style={styles.buttonContainer}>
-            <MaterialCommunityIcons name="minus" color="#607D8B" size={40} />
-          </View>
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => changeTargetTemperature(-1)}>
+            <View>
+              <MaterialCommunityIcons name="minus" color="#607D8B" size={40} />
+            </View>
+          </TouchableOpacity>
+
           <View style={styles.thermometerContainer}>
             <MaterialCommunityIcons
               name="thermometer"
@@ -26,20 +39,22 @@ const RoomScreenTemperature = () => {
               size={70}
             />
           </View>
-          <View style={styles.buttonContainer}>
-            <MaterialCommunityIcons name="plus" color="#607D8B" size={40} />
-          </View>
+
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => changeTargetTemperature(1)}>
+            <View>
+              <MaterialCommunityIcons name="plus" color="#607D8B" size={40} />
+            </View>
+          </TouchableOpacity>
         </View>
-        <Text style={styles.temperature}>25°C</Text>
-        <SectionTitle title="Current Temperature" />
+        <Text style={styles.temperature}>{targetTemperature}°C</Text>
+        <SectionTitle title="Current temperature" />
         <Text
           style={{
             fontSize: 40,
             textAlign: 'center',
-            marginVertical: 15,
           }}
         >
-          23°C
+          {currentTemperature}°C
         </Text>
       </View>
     </View>
@@ -47,7 +62,7 @@ const RoomScreenTemperature = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {flex: 4},
+  container: { flex: 4 },
   thermometerContainer: {
     width: 90,
     height: 90,
@@ -66,7 +81,8 @@ const styles = StyleSheet.create({
   },
   temperature: {
     textAlign: 'center',
-    paddingVertical: 10,
+    paddingTop: 16,
+    paddingBottom: 24,
     fontSize: 20,
     fontWeight: 'bold',
   },
