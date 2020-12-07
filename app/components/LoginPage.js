@@ -20,8 +20,8 @@ const LoginPage = ({ navigation }) => {
 
     const [showPass, setShowPass] = useState(true);
     const [press, setPress] = useState(false);
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('test@test.pl');
+    const [password, setPassword] = useState('chujdupa123');
 
 
     const service = new ApiService();
@@ -30,6 +30,8 @@ const LoginPage = ({ navigation }) => {
         service.jwtCreate(username, password).then(response => {
             service.me().then(response => {
                 navigation.navigate('Home');
+            }).catch(error => {
+                alert('error -> ', error);
             })
         }).catch(reason => {
             // TODO: Walidacja formularza i walidacja 401 forbidden
@@ -54,7 +56,7 @@ const LoginPage = ({ navigation }) => {
             </View>
             <View styles={styles.inputContainer}>
                 <View style={styles.inputIcon}>
-                    <AiOutlineUser size={30} />
+                    {/* <AiOutlineUser size={30} /> */}
                 </View>
                 <TextInput
                     name="email"
@@ -62,20 +64,20 @@ const LoginPage = ({ navigation }) => {
                     style={styles.input}
                     placeholder={'Username'}
                     value={username}
-                    onChange={e => setUsername(e.target.value)}
+                    onChangeText={text => setUsername(text)}
                     placeholderTextColor={'rgba(0,0,0,0.7)'}
                     underlineColorAndroid={'transparent'} />
             </View>
             <View styles={styles.inputContainer}>
                 <View style={styles.inputIcon}>
-                    <RiLockPasswordLine size={30} />
+                    {/* <RiLockPasswordLine size={30} /> */}
                 </View>
                 <TextInput
                     name="password"
                     theme={{ colors: { primary: 'orange' } }}
                     style={styles.input}
                     value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    onChangeText={text => setPassword(text)}
                     placeholder={'Password'}
                     placeholderTextColor={'rgba(0,0,0,0.7)'}
                     secureTextEntry={showPass}
@@ -83,7 +85,7 @@ const LoginPage = ({ navigation }) => {
                 </TextInput>
                 <TouchableOpacity onPress={() => setShowPass(!showPass)} style={styles.iconEye}>
                     <View>
-                        {press ? <AiOutlineEyeInvisible size={30}/> : <AiOutlineEye size={30}/>}
+                        {/* {press ? <AiOutlineEyeInvisible size={30}/> : <AiOutlineEye size={30}/>} */}
                     </View>
                 </TouchableOpacity>
             </View>
@@ -111,7 +113,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'rgba(0,0,0,0.2)',
-        borderRadius: '100%'
+        borderRadius: 100
     },
     logo: {
         width: 120,
@@ -137,7 +139,6 @@ const styles = StyleSheet.create({
         paddingLeft: 45,
         backgroundColor: 'rgba(255,255,255,0.35)',
         color: 'rgba(0,0,0,0.5)',
-        outline: 'none'
     },
     inputIcon: {
         position: 'absolute',
