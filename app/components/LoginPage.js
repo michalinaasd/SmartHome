@@ -20,8 +20,8 @@ const LoginPage = ({ navigation }) => {
 
     const [showPass, setShowPass] = useState(true);
     const [press, setPress] = useState(false);
-    const [username, setUsername] = useState('test@test.pl');
-    const [password, setPassword] = useState('chujdupa123');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
 
     const service = new ApiService();
