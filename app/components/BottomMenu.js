@@ -7,7 +7,8 @@ import HomeScreen from './HomeScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
-const BottomMenu = () => {
+const BottomMenu = ({service}) => {
+  service.getUserBuildings();
   return (
     <Tab.Navigator initialRouteName="Home" activeColor="#fff" shifting={true}>
       <Tab.Screen
@@ -47,4 +48,4 @@ const BottomMenu = () => {
   );
 };
 
-export { BottomMenu };
+export {BottomMenu};
