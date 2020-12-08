@@ -1,11 +1,11 @@
-import axios from 'axios';
-import {Subject} from 'rxjs';
-import {AsyncStorage} from '@react-native-async-storage/async-storage';
+import axios from "axios";
+import { Subject } from "rxjs";
+import { AsyncStorage } from "@react-native-async-storage/async-storage";
 
 export const currentUserSubject = new Subject();
 
 try {
-  AsyncStorage.getItem('@AuthStore:user').then((user) => {
+  AsyncStorage.getItem("@AuthStore:user").then((user) => {
     if (user !== null) {
       currentUserSubject.next(user);
     }
@@ -18,11 +18,13 @@ export const currentUser = currentUserSubject.asObservable();
 
 export default class ApiService {
   constructor() {
-    this.url = 'http://192.168.0.103:8000';
+    this.url = "http://192.168.0.103:8000";
     this.http = axios.create({
       baseURL: this.url,
     });
-    this.token;
+    this.token =
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjA3NTQwNDk3LCJqdGkiOiJmMDQ4NDBjZGQ3MTc0YWVjOTdmNzQwNTNiNTBkNTJlNCIsInVzZXJfaWQiOjF9.aONPssKBCTfjHG9byjltQB7UC-r9WFDIv4Q89ND0dTY";
+    this.data;
   }
 
   register() {
@@ -34,8 +36,8 @@ export default class ApiService {
 
     return new Promise((resolve, reject) => {
       var params = new URLSearchParams();
-      params.append('email', username);
-      params.append('password', password);
+      params.append("email", username);
+      params.append("password", password);
 
       this.http
         .post(endpointUrl, params)
@@ -43,12 +45,12 @@ export default class ApiService {
           if (response.status == 200) {
             this.http.defaults.headers.common = {
               Authorization: `Bearer ${response.data.access}`,
-              Accept: '*/*',
-              Connection: 'keep-alive',
+              Accept: "*/*",
+              Connection: "keep-alive",
             };
 
             this.token = response.data.access;
-            resolve('Jwt created successfuly');
+            resolve("Jwt created successfuly");
 
             // Promise.all([
             //     AsyncStorage.setItem('@AuthStore:jwt_access', response.data.access),
@@ -61,7 +63,7 @@ export default class ApiService {
         .catch((error) => {
           var failure = {
             status: 422,
-            message: 'Wystąpił problem z serwerem',
+            message: "Wystąpił problem z serwerem",
             data: {},
           };
 
@@ -70,7 +72,7 @@ export default class ApiService {
             if (error.response.status == 400) {
               failure = {
                 status: 400,
-                message: username + ':' + password,
+                message: username + ":" + password,
                 data: error.response.data,
               };
             }
@@ -90,7 +92,7 @@ export default class ApiService {
   }
 
   me() {
-    const endpointUrl = '/api/auth/users/me/';
+    const endpointUrl = "/api/auth/users/me/";
 
     return new Promise((resolve, reject) => {
       this.http
@@ -108,23 +110,27 @@ export default class ApiService {
             // localStorage.setItem('user', JSON.stringify(response.data));
             currentUserSubject.next(response.data);
 
-            resolve('Logged successfully');
+            resolve("Logged successfully");
           }
         })
         .catch((reason) => {
           console.warn(reason);
-          reject('Something went wrong with logging!');
+          reject("Something went wrong with logging!");
         });
     });
   }
-  getUserBuildings() {
-    fetch(this.url + '/api/buildings/', {
-      method: 'get',
-      headers: new Headers({
-        Authorization: `Bearer ${this.token}`,
-      }),
-    })
-      .then((res) => res.json())
-      .then((result) => console.log(result));
+
+  getData(endpointUrl) {
+    return new Promise((resolve, reject) => {
+      fetch(this.url + endpointUrl, {
+        method: "get",
+        headers: new Headers({
+          Authorization: `Bearer ${this.token}`,
+        }),
+      })
+        .then((res) => res.json())
+        .then((result) => resolve(result))
+        .catch((reason) => reject(reason));
+    });
   }
 }

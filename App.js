@@ -1,10 +1,10 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {BottomMenu} from './app/components/BottomMenu';
-import React from 'react';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import LoginPage from './app/components/LoginPage';
-import {currentUser} from './app/api/ApiService';
-import ApiService from './app/api/ApiService';
+import { NavigationContainer } from "@react-navigation/native";
+import { BottomMenu } from "./app/components/BottomMenu";
+import React from "react";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import LoginPage from "./app/components/LoginPage";
+import { currentUser } from "./app/api/ApiService";
+import ApiService from "./app/api/ApiService";
 
 const Drawer = createDrawerNavigator();
 
@@ -19,7 +19,7 @@ export default function App(...params) {
 
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Login">
+      <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Login">
           {(props) => <LoginPage {...props} service={service} />}
         </Drawer.Screen>

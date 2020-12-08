@@ -1,15 +1,17 @@
-import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import Header from './Header';
-import Scenes from './Scenes';
-import Rooms from './Rooms';
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import Header from "./Header";
+import Scenes from "./Scenes";
+import Rooms from "./Rooms";
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ route, navigation }) => {
+  const { service } = route.params;
+
   return (
     <View style={styles.container}>
       <Header />
       <Scenes navigation={navigation} />
-      <Rooms navigation={navigation} />
+      <Rooms navigation={navigation} service={service} />
     </View>
   );
 };
@@ -17,7 +19,7 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
 });
 

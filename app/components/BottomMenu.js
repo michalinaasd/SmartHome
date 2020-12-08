@@ -8,12 +8,12 @@ import HomeScreen from './HomeScreen';
 const Tab = createMaterialBottomTabNavigator();
 
 const BottomMenu = ({service}) => {
-  service.getUserBuildings();
   return (
     <Tab.Navigator initialRouteName="Home" activeColor="#fff" shifting={true}>
       <Tab.Screen
         name="Home"
         component={HomeScreenNavigationStack}
+        initialParams={{service: service}}
         options={{
           tabBarLabel: 'Home',
           tabBarColor: '#009387',
