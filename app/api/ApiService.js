@@ -1,14 +1,25 @@
 
 import axios from 'axios';
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
+import { AsyncStorage } from '@react-native-async-storage/async-storage';
 
-export const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')));
+export const currentUserSubject = new Subject();
+
+try {
+    AsyncStorage.getItem('@AuthStore:user').then(user => {
+        if (user !== null) {
+            currentUserSubject.next(user);
+        }
+    })
+} catch (error) {
+    // Error saving data
+}
 
 export const currentUser = currentUserSubject.asObservable();
 
 export default class ApiService {
     constructor() {
-        this.url = "http://localhost:8000";
+        this.url = "http://192.168.0.105:8000";
         this.http = axios.create({
             baseURL: this.url
         });
@@ -29,16 +40,20 @@ export default class ApiService {
             this.http.post(endpointUrl, params)
                 .then(response => {
                     if (response.status == 200) {
-                        localStorage.setItem('jwt_access', response.data.access);
-                        localStorage.setItem('jwt_refresh', response.data.refresh);
-
                         this.http.defaults.headers.common = {
-                            'Authorization': `Bearer ${localStorage.getItem('jwt_access').toString()}`,
+                            'Authorization': `Bearer ${response.data.access}`,
                             'Accept': '*/*',
                             'Connection': 'keep-alive'
                         };
 
                         resolve("Jwt created successfuly");
+
+                        // Promise.all([
+                        //     AsyncStorage.setItem('@AuthStore:jwt_access', response.data.access),
+                        //     AsyncStorage.setItem('@AuthStore:jwt_refresh', response.data.refresh)
+                        // ]).then(() => {
+                        //     alert('subscribed');
+                        // })
                     }
                 }).catch(error => {
                     var failure = {
@@ -47,22 +62,24 @@ export default class ApiService {
                         data: {}
                     }
 
-                    /* Error 400 - Bad request */
-                    if (error.response.status == 400) {
-                        failure = {
-                            status: 400,
-                            message: "Wystąpił problem z formularzem",
-                            data: error.response.data
+                    if (error.reponse) {
+                        /* Error 400 - Bad request */
+                        if (error.response.status == 400) {
+                            failure = {
+                                status: 400,
+                                message: username + ':' + password,
+                                data: error.response.data
 
+                            }
                         }
-                    }
 
-                    /* Error 401 - Forbidden */
-                    if (error.response.status == 401) {
-                        failure = {
-                            status: 401,
-                            message: error.response.data.detail
+                        /* Error 401 - Forbidden */
+                        if (error.response.status == 401) {
+                            failure = {
+                                status: 401,
+                                message: error.response.data.detail
 
+                            }
                         }
                     }
 
@@ -79,7 +96,15 @@ export default class ApiService {
 
             }).then(response => {
                 if (response.status == 200) {
-                    localStorage.setItem('user', JSON.stringify(response.data));
+                    // try {
+                    //     AsyncStorage.setItem(
+                    //         '@AuthStore:user',
+                    //         JSON.stringify(response.data)
+                    //     );
+                    // } catch (error) {
+                    //     // Error saving data
+                    // }
+                    // localStorage.setItem('user', JSON.stringify(response.data));
                     currentUserSubject.next(response.data);
 
                     resolve("Logged successfully");
