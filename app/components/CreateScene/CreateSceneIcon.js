@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import SectionTitle from '../SectionTitle';
-import SceneItem from '../SceneItem';
-import {scenesIcons} from '../constants';
-import AppButton from '../AppButton';
+import React, { useState } from "react";
+import { StyleSheet, View } from "react-native";
+import SectionTitle from "../SectionTitle";
+import SceneItem from "../SceneItem";
+import { scenesIcons } from "../constants";
+import AppButton from "../AppButton";
 
-const CreateSceneIcon = ({navigation}) => {
-  const [selectedIcon, setSelectedIcon] = useState('');
+const CreateSceneIcon = ({ navigation }) => {
+  const [selectedIcon, setSelectedIcon] = useState("");
 
   return (
     <View style={styles.container}>
@@ -18,9 +18,7 @@ const CreateSceneIcon = ({navigation}) => {
               key={value}
               icon={value}
               selected={value === selectedIcon}
-              onPress={() => {
-                setSelectedIcon(value);
-              }}
+              onPress={() => setSelectedIcon(value)}
             />
           );
         })}
@@ -28,7 +26,7 @@ const CreateSceneIcon = ({navigation}) => {
       <AppButton
         onPress={() => {
           selectedIcon &&
-            navigation.navigate('create-scene-name', {
+            navigation.navigate("create-scene-name", {
               selectedIcon: selectedIcon,
             });
         }}
@@ -48,9 +46,9 @@ const styles = StyleSheet.create({
   },
   icons: {
     flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
     paddingHorizontal: 5,
     paddingBottom: 20,
   },
