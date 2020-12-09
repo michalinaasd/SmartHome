@@ -10,7 +10,7 @@ const HomeScreen = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <Header />
-      <Scenes navigation={navigation} />
+      <Scenes navigation={navigation} service={service} />
       <Rooms navigation={navigation} service={service} />
     </View>
   );
