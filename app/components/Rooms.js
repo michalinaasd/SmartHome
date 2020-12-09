@@ -17,11 +17,17 @@ const Rooms = ({ service, navigation }) => {
       <View style={styles.rooms}>
         {Object.values(data)
           .filter((room) => (room.building = 1))
-          .map(({ name }) => (
+          .map(({ name, id }) => (
             <RoomItem
-              key={name}
+              key={id}
               name={name}
-              onPress={() => navigation.navigate("room", { name: name })}
+              onPress={() =>
+                navigation.navigate("room", {
+                  name: name,
+                  roomID: id,
+                  service: service,
+                })
+              }
             />
           ))}
       </View>
