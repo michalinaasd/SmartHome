@@ -1,19 +1,30 @@
-import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import AppButton from '../AppButton';
-import CreateSceneDevicesList from './CreateSceneDevicesList';
-import SectionTitle from '../SectionTitle';
+import React, { useState } from "react";
+import { View, StyleSheet } from "react-native";
+import AppButton from "../AppButton";
+import CreateSceneDevicesList from "./CreateSceneDevicesList";
+import SectionTitle from "../SectionTitle";
 
-const CreateSceneDevices = ({navigation}) => {
+const CreateSceneDevices = ({ navigation }) => {
+  const [selectedDevices, setSelectedDevices] = useState([]);
+
   return (
     <View style={styles.container}>
       <SectionTitle title="Select devices" />
-      <CreateSceneDevicesList />
+      <CreateSceneDevicesList
+        onSelect={(device) =>
+          setSelectedDevices((selectedDevices) => [...selectedDevices, device])
+        }
+        onUnselect={(device) =>
+          setSelectedDevices(selectedDevices.filter((value) => value != device))
+        }
+      />
       <AppButton
-        title="Done"
+        title="Next"
         onPress={() => {
-          console.log('Scene Created');
-          navigation.navigate('home');
+          console.log(selectedDevices);
+          navigation.navigate("create-scene-devices-states", {
+            devices: selectedDevices,
+          });
         }}
       />
     </View>

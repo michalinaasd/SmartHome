@@ -5,6 +5,7 @@ import RoomScreen from "./RoomScreen/RoomScreen";
 import CreateSceneIcon from "./CreateScene/CreateSceneIcon";
 import CreateSceneName from "./CreateScene/CreateSceneName";
 import CreateSceneDevices from "./CreateScene/CreateSceneDevices";
+import CreateSceneDevicesStates from "./CreateScene/CreateSceneDevicesStates";
 import { rooms } from "./constants";
 
 const Stack = createStackNavigator();
@@ -38,6 +39,11 @@ const HomeScreenNavigationStack = ({ route }) => {
       <Stack.Screen
         name="create-scene-devices"
         component={CreateSceneDevices}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="create-scene-devices-states"
+        component={CreateSceneDevicesStates}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
