@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   itemText: {
     marginVertical: "auto",
     paddingHorizontal: 10,
-    fontSize: "1.2rem",
+    fontSize: 20,
   },
 });
 

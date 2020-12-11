@@ -6,13 +6,12 @@ import { Switch } from "react-native-gesture-handler";
 
 const CreateSceneDevicesStates = ({ route, navigation }) => {
   const { devices } = route.params;
-
-  console.log(devices);
+  console.log(typeof devices);
   return (
     <View style={styles.container}>
       <SectionTitle title="Set states" />
       {devices.map((value) => (
-        <View key={value} style={styles.item}>
+        <View key={Math.random()} style={styles.item}>
           <Text style={styles.itemText}>{value}</Text>
           <View style={{ justifyContent: "center" }}>
             <Switch />
@@ -37,7 +36,6 @@ const styles = StyleSheet.create({
   },
   item: {
     height: 50,
-    flex: 1,
     flexDirection: "row",
     marginVertical: 5,
     elevation: 5,
@@ -46,9 +44,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#e3e3e3",
   },
   itemText: {
-    marginVertical: "auto",
+    alignSelf: "center",
     paddingHorizontal: 10,
-    fontSize: "1.2rem",
+    fontSize: 20,
   },
 });
 

@@ -10,8 +10,6 @@ const Scenes = ({ service, navigation }) => {
     promise.then((res) => setData(res));
   }, []);
 
-  console.log(data);
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Scenes</Text>

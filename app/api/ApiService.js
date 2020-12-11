@@ -22,9 +22,7 @@ export default class ApiService {
     this.http = axios.create({
       baseURL: this.url,
     });
-    this.token =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjA3NTQwNDk3LCJqdGkiOiJmMDQ4NDBjZGQ3MTc0YWVjOTdmNzQwNTNiNTBkNTJlNCIsInVzZXJfaWQiOjF9.aONPssKBCTfjHG9byjltQB7UC-r9WFDIv4Q89ND0dTY";
-    this.data;
+    this.token;
   }
 
   register() {

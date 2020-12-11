@@ -19,7 +19,7 @@ export default function App(...params) {
 
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Navigator initialRouteName="Login">
         <Drawer.Screen name="Login">
           {(props) => <LoginPage {...props} service={service} />}
         </Drawer.Screen>

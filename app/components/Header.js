@@ -21,7 +21,7 @@ const Header = () => {
             fontWeight: "700",
           }}
         >
-          user.email
+          {user.email}
         </Text>
         <Text style={{ fontSize: 18 }}>Lorem ipsum dolor sit amet</Text>
       </View>
