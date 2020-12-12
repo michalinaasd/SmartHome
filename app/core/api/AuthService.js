@@ -1,23 +1,14 @@
 
 import axios from 'axios';
-import { Subject } from 'rxjs';
-import { AsyncStorage } from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getStorageItem, removeStorageItem, setStorageItem } from '../helpers/storage';
+import { get } from 'react-native/Libraries/Utilities/PixelRatio';
 
-export const currentUserSubject = new Subject();
+const STORAGE_JWT_ACCESS = '@AuthStorage:jwt_access';
+const STORAGE_JWT_REFRESH = '@AuthStorage:jwt_refresh';
+const STORAGE_USER = '@AuthStorage:user';
 
-try {
-    AsyncStorage.getItem('@AuthStore:user').then(user => {
-        if (user !== null) {
-            currentUserSubject.next(user);
-        }
-    })
-} catch (error) {
-    // Error saving data
-}
-
-export const currentUser = currentUserSubject.asObservable();
-
-export default class ApiService {
+export default class AuthService {
     constructor() {
         this.url = "http://192.168.0.105:8000";
         this.http = axios.create({
@@ -25,11 +16,23 @@ export default class ApiService {
         });
     }
 
-    register() {
-        const endpointUrl = `${this.url}/api/auth/users`;
+    logout() {
+        return new Promise(resolve => {
+            removeUser().then(() => {
+                resolve(true);
+            });
+        });
     }
 
-    jwtCreate(username, password) {
+    async login(username, password) {
+        return new Promise((resolve, reject) => {
+            return this.jwtCreate(username, password).then(() => {
+                return this.me().then(user => resolve(user)).then(reason => reject(reason));
+            }).catch(reason => reject(reason));
+        });
+    }
+
+    async jwtCreate(username, password) {
         const endpointUrl = `/api/auth/jwt/create`;
 
         return new Promise((resolve, reject) => {
@@ -46,23 +49,22 @@ export default class ApiService {
                             'Connection': 'keep-alive'
                         };
 
-                        resolve("Jwt created successfuly");
+                        try {
+                            this.storeJwt(response.data.access, response.data.refresh);
 
-                        // Promise.all([
-                        //     AsyncStorage.setItem('@AuthStore:jwt_access', response.data.access),
-                        //     AsyncStorage.setItem('@AuthStore:jwt_refresh', response.data.refresh)
-                        // ]).then(() => {
-                        //     alert('subscribed');
-                        // })
+                            resolve(true);
+                        } catch (e) {
+                            console.warn(e);
+                        }
                     }
                 }).catch(error => {
-                    var failure = {
+                    let failure = {
                         status: 422,
                         message: 'Wystąpił problem z serwerem',
                         data: {}
                     }
 
-                    if (error.reponse) {
+                    if (error.response) {
                         /* Error 400 - Bad request */
                         if (error.response.status == 400) {
                             failure = {
@@ -88,26 +90,19 @@ export default class ApiService {
         });
     }
 
-    me() {
+    async me() {
         const endpointUrl = '/api/auth/users/me/';
 
         return new Promise((resolve, reject) => {
-            this.http.get(endpointUrl, {
-
-            }).then(response => {
+            this.http.get(endpointUrl).then(response => {
                 if (response.status == 200) {
-                    // try {
-                    //     AsyncStorage.setItem(
-                    //         '@AuthStore:user',
-                    //         JSON.stringify(response.data)
-                    //     );
-                    // } catch (error) {
-                    //     // Error saving data
-                    // }
-                    // localStorage.setItem('user', JSON.stringify(response.data));
-                    currentUserSubject.next(response.data);
+                    try {
+                        this.storeUser(response.data);
+                    } catch (error) {
+                        reject(error);
+                    }
 
-                    resolve("Logged successfully");
+                    resolve(response.data);
                 }
             }).catch(reason => {
                 console.warn(reason);
@@ -115,4 +110,25 @@ export default class ApiService {
             })
         })
     }
+
+    async storeJwt(access, refresh) {
+        await setStorageItem(STORAGE_JWT_ACCESS, access);
+        await setStorageItem(STORAGE_JWT_REFRESH, refresh);
+    }
+
+    async storeUser(user) {
+        await setStorageItem(STORAGE_USER, user);
+    }
+}
+
+export const getJwt = async () => {
+    return getStorageItem(STORAGE_JWT_ACCESS);
+}
+
+export const removeUser = async () => {
+    await removeStorageItem(STORAGE_USER);
+}
+
+export const getUser = async () => {
+    return getStorageItem(STORAGE_USER);
 }

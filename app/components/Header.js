@@ -1,10 +1,19 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { user } from '../../App';
+import { getUser } from '../core/api/AuthService';
 
 const Header = () => {
+  const [user, setUser] = useState(null)
 
+  if (!user) {
+    getUser().then(user => {
+      if (user != null) {
+        setUser(user);
+      }
+    });
+  }
 
   return (
     <View style={styles.container}>
@@ -23,9 +32,9 @@ const Header = () => {
             fontWeight: '700',
           }}
         >
-          {user.email}
+          { user && user.email }
         </Text>
-        <Text style={{fontSize: 18}}>Lorem ipsum dolor sit amet</Text>
+        <Text style={{ fontSize: 18 }}>Lorem ipsum dolor sit amet</Text>
       </View>
       <View style={styles.logo}>
         <MaterialCommunityIcons name="home" color="white" size={80} />

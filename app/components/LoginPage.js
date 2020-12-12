@@ -5,49 +5,43 @@ import {
     View,
     Image,
     Dimensions,
-    TouchableOpacity
+    TouchableOpacity,
+    KeyboardAvoidingView
 } from 'react-native';
-import { Component } from 'react';
 import logo from '../../images/logo.png';
 import { TextInput } from 'react-native-paper';
-import { AiOutlineUser, AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { RiLockPasswordLine } from 'react-icons/ri';
-import ApiService from '../api/ApiService';
+import AuthService from '../core/api/AuthService';
 
 const { width: WIDTH } = Dimensions.get('window')
 
 const LoginPage = ({ navigation }) => {
-
     const [showPass, setShowPass] = useState(true);
     const [press, setPress] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    const service = new AuthService();
 
-    const service = new ApiService();
-
-    const login = () => {
-        service.jwtCreate(username, password).then(response => {
-            service.me().then(response => {
-                navigation.navigate('Home');
-            }).catch(error => {
-                alert('error -> ', error);
-            })
+    const handleLogin = async () => {
+        await service.login(username, password).then(response => {
+            navigation.navigate("Home");
         }).catch(reason => {
             // TODO: Walidacja formularza i walidacja 401 forbidden
 
             if (reason.status == 400) {
-                alert(reason.message);
+                console.log(reason);
+                // alert(reason.message);
             }
 
             if (reason.status == 401) {
-                alert(reason.message);
+                console.log(reason);
+                // alert(reason.message);
             }
         });
     }
 
     return (
-        <View style={styles.backgroundContainer}>
+        <KeyboardAvoidingView style={styles.backgroundContainer} behavior="padding">
             <View style={styles.logoContainer}>
                 <View style={styles.logoCircle}>
                     <Image source={logo} style={styles.logo} />
@@ -89,10 +83,10 @@ const LoginPage = ({ navigation }) => {
                     </View>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.buttonLoginTO} onPress={login}>
+            <TouchableOpacity style={styles.buttonLoginTO} onPress={handleLogin}>
                 <Text styles={styles.buttonLogin}>LOGIN</Text>
             </TouchableOpacity>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 
