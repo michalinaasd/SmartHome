@@ -11,6 +11,7 @@ import {
 import logo from '../../images/logo.png';
 import { TextInput } from 'react-native-paper';
 import AuthService from '../core/api/AuthService';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const { width: WIDTH } = Dimensions.get('window')
 
@@ -50,7 +51,7 @@ const LoginPage = ({ navigation }) => {
             </View>
             <View styles={styles.inputContainer}>
                 <View style={styles.inputIcon}>
-                    {/* <AiOutlineUser size={30} /> */}
+                    <MaterialCommunityIcons name="account" color="rgba(0,0,0)" size={30} />
                 </View>
                 <TextInput
                     name="email"
@@ -63,8 +64,8 @@ const LoginPage = ({ navigation }) => {
                     underlineColorAndroid={'transparent'} />
             </View>
             <View styles={styles.inputContainer}>
-                <View style={styles.inputIcon}>
-                    {/* <RiLockPasswordLine size={30} /> */}
+                <View style={[styles.inputIcon, styles.inputIconLock]}>
+                    <MaterialCommunityIcons name="lock" color="rgba(0,0,0)" size={24} />
                 </View>
                 <TextInput
                     name="password"
@@ -79,7 +80,7 @@ const LoginPage = ({ navigation }) => {
                 </TextInput>
                 <TouchableOpacity onPress={() => setShowPass(!showPass)} style={styles.iconEye}>
                     <View>
-                        {/* {press ? <AiOutlineEyeInvisible size={30}/> : <AiOutlineEye size={30}/>} */}
+                        {showPass ? <MaterialCommunityIcons name="eye-outline" color="rgba(0,0,0)" size={24} /> : <MaterialCommunityIcons name="eye-off-outline" color="rgba(0,0,0)" size={24} />}
                     </View>
                 </TouchableOpacity>
             </View>
@@ -139,9 +140,13 @@ const styles = StyleSheet.create({
         top: 25,
         left: 17
     },
+    inputIconLock: {
+        top: 28,
+        left: 21
+    },
     iconEye: {
         position: 'absolute',
-        top: 30,
+        top: 29,
         right: 10
     },
     buttonLoginTO: {
