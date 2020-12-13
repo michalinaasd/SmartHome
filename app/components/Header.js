@@ -2,14 +2,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { getUser } from '../core/api/AuthService';
+import { getJwt, getUser, STORAGE_JWT_ACCESS } from '../core/api/AuthService';
 
 const Header = () => {
   const [user, setUser] = useState(null)
 
   if (!user) {
+    getJwt().then(jwt => {
+      alert(jwt);
+    })
+
     getUser().then(user => {
-      if (user != null) {
+      alert(user.email);
+      if (user) {
         setUser(user);
       }
     });
@@ -32,7 +37,7 @@ const Header = () => {
             fontWeight: '700',
           }}
         >
-          { user && user.email }
+          {user && user.email}
         </Text>
         <Text style={{ fontSize: 18 }}>Lorem ipsum dolor sit amet</Text>
       </View>

@@ -1,10 +1,8 @@
 
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getStorageItem, removeStorageItem, setStorageItem } from '../helpers/storage';
-import { get } from 'react-native/Libraries/Utilities/PixelRatio';
 
-const STORAGE_JWT_ACCESS = '@AuthStorage:jwt_access';
+export const STORAGE_JWT_ACCESS = '@AuthStorage:jwt_access';
 const STORAGE_JWT_REFRESH = '@AuthStorage:jwt_refresh';
 const STORAGE_USER = '@AuthStorage:user';
 
@@ -50,9 +48,9 @@ export default class AuthService {
                         };
 
                         try {
-                            this.storeJwt(response.data.access, response.data.refresh);
-
-                            resolve(true);
+                            this.storeJwt(response.data.access, response.data.refresh).then(() => {
+                                resolve(true);
+                            });
                         } catch (e) {
                             console.warn(e);
                         }
@@ -97,12 +95,12 @@ export default class AuthService {
             this.http.get(endpointUrl).then(response => {
                 if (response.status == 200) {
                     try {
-                        this.storeUser(response.data);
+                        this.storeUser(response.data).then(() => {
+                            resolve(response.data);
+                        });
                     } catch (error) {
                         reject(error);
                     }
-
-                    resolve(response.data);
                 }
             }).catch(reason => {
                 console.warn(reason);
@@ -112,12 +110,14 @@ export default class AuthService {
     }
 
     async storeJwt(access, refresh) {
-        await setStorageItem(STORAGE_JWT_ACCESS, access);
-        await setStorageItem(STORAGE_JWT_REFRESH, refresh);
+        return Promise.all([
+            setStorageItem(STORAGE_JWT_ACCESS, access),
+            setStorageItem(STORAGE_JWT_REFRESH, refresh)
+        ]);
     }
 
     async storeUser(user) {
-        await setStorageItem(STORAGE_USER, user);
+        return setStorageItem(STORAGE_USER, user);
     }
 }
 

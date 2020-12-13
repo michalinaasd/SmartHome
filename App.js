@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import LoginPage from './app/components/LoginPage';
 import { createStackNavigator } from '@react-navigation/stack';
-import { getUser, removeUser } from './app/core/api/AuthService';
+import { getUser, removeUser, STORAGE_JWT_ACCESS } from './app/core/api/AuthService';
+import { removeStorageItem } from './app/core/helpers/storage';
 
 const Drawer = createDrawerNavigator();
 const AuthContext = React.createContext();
