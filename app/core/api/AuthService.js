@@ -22,20 +22,20 @@ export default class AuthService {
         });
     }
 
-    async login(username, password) {
+    async login(login, password) {
         return new Promise((resolve, reject) => {
-            return this.jwtCreate(username, password).then(() => {
+            return this.jwtCreate(login, password).then(() => {
                 return this.me().then(user => resolve(user)).then(reason => reject(reason));
             }).catch(reason => reject(reason));
         });
     }
 
-    async jwtCreate(username, password) {
+    async jwtCreate(login, password) {
         const endpointUrl = `/api/auth/jwt/create`;
 
         return new Promise((resolve, reject) => {
             var params = new URLSearchParams();
-            params.append('email', username);
+            params.append('email', login);
             params.append('password', password);
 
             this.http.post(endpointUrl, params)
@@ -67,7 +67,7 @@ export default class AuthService {
                         if (error.response.status == 400) {
                             failure = {
                                 status: 400,
-                                message: username + ':' + password,
+                                message: login + ':' + password,
                                 data: error.response.data
 
                             }
