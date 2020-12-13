@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import RoomScreenControlItem from './RoomScreenControlItem';
 import SectionTitle from '../SectionTitle';
+import RoomScreenTemperature from './RoomScreenTemperature';
 
 const RoomScreenDevices = () => {
   return (

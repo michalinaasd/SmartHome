@@ -8,12 +8,7 @@ const Header = () => {
   const [user, setUser] = useState(null)
 
   if (!user) {
-    getJwt().then(jwt => {
-      alert(jwt);
-    })
-
     getUser().then(user => {
-      alert(user.email);
       if (user) {
         setUser(user);
       }
