@@ -1,18 +1,18 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { getJwt, getUser, STORAGE_JWT_ACCESS } from '../core/api/AuthService';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useState } from "react";
+import { View, StyleSheet, Text } from "react-native";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { getJwt, getUser, STORAGE_JWT_ACCESS } from "../core/api/AuthService";
 
 const Header = () => {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
   if (!user) {
-    getJwt().then(jwt => {
-      alert(jwt);
-    })
+    //getJwt().then(jwt => {
+    //alert(jwt);
+    // })
 
-    getUser().then(user => {
+    getUser().then((user) => {
       alert(user.email);
       if (user) {
         setUser(user);

@@ -6,7 +6,6 @@ import CreateSceneIcon from "./CreateScene/CreateSceneIcon";
 import CreateSceneName from "./CreateScene/CreateSceneName";
 import CreateSceneDevices from "./CreateScene/CreateSceneDevices";
 import CreateSceneDevicesStates from "./CreateScene/CreateSceneDevicesStates";
-import { rooms } from "./constants";
 
 const Stack = createStackNavigator();
 

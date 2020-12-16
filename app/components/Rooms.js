@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import RoomItem from "./RoomItem";
-import { rooms } from "./constants";
 
 const Rooms = ({ service, navigation }) => {
-  //const { service } = route.params;
   const [data, setData] = useState("");
+
   useEffect(() => {
     const promise = service.getData("/api/rooms/");
     promise.then((res) => setData(res));
@@ -15,21 +14,19 @@ const Rooms = ({ service, navigation }) => {
     <View style={styles.container}>
       <Text style={styles.title}>Rooms</Text>
       <View style={styles.rooms}>
-        {Object.values(data)
-          .filter((room) => (room.building = 1))
-          .map(({ name, id }) => (
-            <RoomItem
-              key={id}
-              name={name}
-              onPress={() =>
-                navigation.navigate("room", {
-                  name: name,
-                  roomID: id,
-                  service: service,
-                })
-              }
-            />
-          ))}
+        {Object.values(data).map(({ name, id }) => (
+          <RoomItem
+            key={id}
+            name={name}
+            onPress={() =>
+              navigation.navigate("room", {
+                name: name,
+                roomID: id,
+                service: service,
+              })
+            }
+          />
+        ))}
       </View>
     </View>
   );

@@ -19,7 +19,7 @@ const Scenes = ({ service, navigation }) => {
         showsHorizontalScrollIndicator={false}
       >
         {Object.values(data).map(({ icon, name, id }) => (
-          <SceneItem key={id} icon={icon} name={name} />
+          <SceneItem key={id + name} icon={icon} name={name} />
         ))}
         <SceneItem
           icon="plus"
