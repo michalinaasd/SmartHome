@@ -134,7 +134,6 @@ export default class AuthService {
 
   async getData(endpointUrl) {
     this.token = await getJwt().then((res) => {
-      console.log(res);
       return res;
     });
 
@@ -148,6 +147,26 @@ export default class AuthService {
         .then((res) => res.json())
         .then((result) => resolve(result))
         .catch((reason) => reject(reason));
+    });
+  }
+
+  async createScene(data) {
+    this.token = await getJwt().then((res) => {
+      console.log(res);
+      return res;
+    });
+
+    console.log(data);
+
+    return new Promise((resolve, reject) => {
+      fetch(this.url + "/api/scenes/", {
+        method: "post",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        }),
+        body: JSON.stringify(data),
+      }).catch((reason) => reject(reason));
     });
   }
 }

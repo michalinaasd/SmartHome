@@ -43,6 +43,7 @@ const HomeScreenNavigationStack = ({ route }) => {
       />
       <Stack.Screen
         name="create-scene-devices-states"
+        initialParams={{ service: service }}
         component={CreateSceneDevicesStates}
         options={{ headerShown: false }}
       />

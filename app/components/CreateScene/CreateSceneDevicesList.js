@@ -30,7 +30,8 @@ const CreateSceneDevicesList = ({ service, onSelect, onUnselect }) => {
               .map(({ id, name }) => (
                 <CreateSceneDeviceListItem
                   key={id}
-                  id={name.charAt(0).toUpperCase() + name.slice(1)}
+                  name={name.charAt(0).toUpperCase() + name.slice(1)}
+                  id={id}
                   onSelect={onSelect}
                   onUnselect={onUnselect}
                 />

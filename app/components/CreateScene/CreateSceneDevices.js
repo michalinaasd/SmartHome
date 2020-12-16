@@ -12,18 +12,25 @@ const CreateSceneDevices = ({ route, navigation }) => {
       <SectionTitle title="Select devices" />
       <CreateSceneDevicesList
         service={route.params.service}
-        onSelect={(device) =>
-          setSelectedDevices((selectedDevices) => [...selectedDevices, device])
+        onSelect={(deviceID, deviceName) =>
+          setSelectedDevices([
+            ...selectedDevices,
+            { id: deviceID, name: deviceName },
+          ])
         }
-        onUnselect={(device) =>
-          setSelectedDevices(selectedDevices.filter((value) => value != device))
-        }
+        onUnselect={(deviceID) => {
+          let arr = selectedDevices;
+          delete arr[deviceID];
+          setSelectedDevices(arr);
+        }}
       />
       <AppButton
         title="Next"
         onPress={() => {
           navigation.navigate("create-scene-devices-states", {
             devices: selectedDevices,
+            sceneName: route.params.sceneName,
+            sceneIcon: route.params.sceneIcon,
           });
         }}
       />
