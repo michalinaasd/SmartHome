@@ -1,32 +1,33 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { BottomMenu } from "./app/components/BottomMenu";
-import React from "react";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import LoginPage from "./app/components/LoginPage";
-import { currentUser } from "./app/api/ApiService";
-import ApiService from "./app/api/ApiService";
+import { NavigationContainer } from '@react-navigation/native';
+import { BottomMenu } from './app/components/BottomMenu';
+import React, { useState } from 'react';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import LoginPage from './app/components/LoginPage';
+import { createStackNavigator } from '@react-navigation/stack';
+import { getUser, removeUser, STORAGE_JWT_ACCESS } from './app/core/api/AuthService';
+import { removeStorageItem } from './app/core/helpers/storage';
 
 const Drawer = createDrawerNavigator();
-
-export let user;
-
-currentUser.subscribe((x) => {
-  user = x;
-});
+const AuthContext = React.createContext();
+const Stack = createStackNavigator();
 
 export default function App(...params) {
-  const service = new ApiService();
+  const [isLoggedIn, setisLoggedIn] = useState(false);
+
+  if (!isLoggedIn) {
+    getUser().then(user => {
+      if (user != null) {
+        setisLoggedIn(true);
+      }
+    });
+  }
 
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Login">
-        <Drawer.Screen name="Login">
-          {(props) => <LoginPage {...props} service={service} />}
-        </Drawer.Screen>
-        <Drawer.Screen name="Home">
-          {(props) => <BottomMenu {...props} service={service} />}
-        </Drawer.Screen>
-      </Drawer.Navigator>
+      <Stack.Navigator headerMode="none" initialRouteName={isLoggedIn ? "Home" : "Login"}>
+        <Stack.Screen name="Home" component={BottomMenu} />
+        { !isLoggedIn && <Stack.Screen name="Login" component={LoginPage} /> }
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
