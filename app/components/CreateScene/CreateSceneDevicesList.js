@@ -1,29 +1,44 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { ScrollView } from "react-native";
 import CreateSceneDeviceListItem from "./CreateSceneDeviceListItem";
 import SectionTitle from "../SectionTitle";
-import { rooms } from "../constants";
 
-const CreateSceneDevicesList = ({ onSelect, onUnselect }) => {
+const CreateSceneDevicesList = ({ service, onSelect, onUnselect }) => {
+  const [rooms, setRooms] = useState({});
+  const [devices, setDevices] = useState({});
+  useEffect(() => {
+    let promise = service.getData("/api/rooms/");
+    promise.then((res) => {
+      setRooms(res);
+    });
+    promise = service.getData("/api/devices/");
+    promise.then((res) => {
+      setDevices(res);
+    });
+  }, []);
+
   return (
     <ScrollView style={{ marginVertical: 10 }}>
-      {rooms.map((value) => (
-        <Fragment key={value}>
-          <SectionTitle
-            title={value.charAt(0).toUpperCase() + value.slice(1)}
-          />
-          <CreateSceneDeviceListItem
-            id={`${value}1`}
-            onSelect={onSelect}
-            onUnselect={onUnselect}
-          />
-          <CreateSceneDeviceListItem
-            id={`${value}1`}
-            onSelect={onSelect}
-            onUnselect={onUnselect}
-          />
-        </Fragment>
-      ))}
+      {Object.values(rooms).flatMap(({ id, name }) => {
+        return (
+          <Fragment key={id}>
+            <SectionTitle
+              title={name.charAt(0).toUpperCase() + name.slice(1)}
+            />
+            {Object.values(devices)
+              .filter(({ room }) => room === id)
+              .map(({ id, name }) => (
+                <CreateSceneDeviceListItem
+                  key={id}
+                  name={name.charAt(0).toUpperCase() + name.slice(1)}
+                  id={id}
+                  onSelect={onSelect}
+                  onUnselect={onUnselect}
+                />
+              ))}
+          </Fragment>
+        );
+      })}
     </ScrollView>
   );
 };

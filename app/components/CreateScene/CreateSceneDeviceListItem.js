@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-const CreateSceneDeviceListItem = ({ id, onSelect, onUnselect }) => {
+const CreateSceneDeviceListItem = (props) => {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        isChecked ? onUnselect(id) : onSelect(id);
+        isChecked
+          ? props.onUnselect(props.id)
+          : props.onSelect(props.id, props.name);
         setIsChecked(!isChecked);
       }}
     >
@@ -18,7 +20,7 @@ const CreateSceneDeviceListItem = ({ id, onSelect, onUnselect }) => {
           { backgroundColor: isChecked ? "gray" : "#e3e3e3" },
         ]}
       >
-        <Text style={styles.itemText}>{id}</Text>
+        <Text style={styles.itemText}>{props.name}</Text>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -35,7 +37,7 @@ const styles = StyleSheet.create({
   itemText: {
     marginVertical: "auto",
     paddingHorizontal: 10,
-    fontSize: "1.2rem",
+    fontSize: 20,
   },
 });
 

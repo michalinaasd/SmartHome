@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./HomeScreen";
 import RoomScreen from "./RoomScreen/RoomScreen";
@@ -6,23 +6,25 @@ import CreateSceneIcon from "./CreateScene/CreateSceneIcon";
 import CreateSceneName from "./CreateScene/CreateSceneName";
 import CreateSceneDevices from "./CreateScene/CreateSceneDevices";
 import CreateSceneDevicesStates from "./CreateScene/CreateSceneDevicesStates";
-import { rooms } from "./constants";
 
 const Stack = createStackNavigator();
 
-const HomeScreenNavigationStack = () => {
+const HomeScreenNavigationStack = ({ route }) => {
+  const { service } = route.params;
+
   return (
     <Stack.Navigator initialRouteName="HomeScreen">
       <Stack.Screen
         name="home"
         component={HomeScreen}
+        initialParams={{ service: service }}
         options={{ headerShown: false }}
       />
-      {rooms.map((name) => (
-        <Stack.Screen key={name} name={name} options={{ headerShown: false }}>
-          {(props) => <RoomScreen name={name} />}
-        </Stack.Screen>
-      ))}
+      <Stack.Screen
+        name="room"
+        component={RoomScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="create-scene"
         component={CreateSceneIcon}
@@ -35,11 +37,13 @@ const HomeScreenNavigationStack = () => {
       />
       <Stack.Screen
         name="create-scene-devices"
+        initialParams={{ service: service }}
         component={CreateSceneDevices}
         options={{ headerShown: false }}
       />
       <Stack.Screen
         name="create-scene-devices-states"
+        initialParams={{ service: service }}
         component={CreateSceneDevicesStates}
         options={{ headerShown: false }}
       />
