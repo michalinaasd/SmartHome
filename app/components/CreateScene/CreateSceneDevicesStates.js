@@ -21,7 +21,7 @@ const CreateSceneDevicesStates = ({ route, navigation }) => {
       scene: {
         name: sceneName,
         building: "1",
-        //icon: sceneIcon
+        icon: sceneIcon,
       },
       devices: devicesArr,
     });
