@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
 import AppButton from "../AppButton";
 import CreateSceneDevicesList from "./CreateSceneDevicesList";
-import SectionTitle from "../SectionTitle";
+import CreateSceneContainer from "./CreateSceneContainer";
 
 const CreateSceneDevices = ({ route, navigation }) => {
   const [selectedDevices, setSelectedDevices] = useState([]);
 
   return (
-    <View style={styles.container}>
-      <SectionTitle title="Select devices" />
+    <CreateSceneContainer title="Select devices">
       <CreateSceneDevicesList
         service={route.params.service}
         onSelect={(deviceID, deviceName) =>
@@ -34,17 +32,8 @@ const CreateSceneDevices = ({ route, navigation }) => {
           });
         }}
       />
-    </View>
+    </CreateSceneContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 10,
-    paddingTop: 50,
-    paddingBottom: 20,
-  },
-});
 
 export default CreateSceneDevices;

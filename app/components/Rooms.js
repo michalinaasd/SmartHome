@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import RoomItem from "./RoomItem";
+import SectionTitle from "./SectionTitle";
 
 const Rooms = ({ service, navigation }) => {
   const [data, setData] = useState("");
@@ -12,7 +14,7 @@ const Rooms = ({ service, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Rooms</Text>
+      <SectionTitle title="Rooms" />
       <View style={styles.rooms}>
         {Object.values(data).map(({ name, id }) => (
           <RoomItem
@@ -34,20 +36,11 @@ const Rooms = ({ service, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    height: "65%",
+    flex: 2,
     flexDirection: "column",
-    paddingHorizontal: 10,
   },
   rooms: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-  },
-  title: {
-    fontSize: 25,
-    fontWeight: "700",
-    paddingBottom: 5,
+    flexDirection: "column",
   },
 });
 

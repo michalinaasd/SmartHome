@@ -1,14 +1,25 @@
-import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import React from "react";
+import { View, StyleSheet, Text } from "react-native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { backgroundColor } from "./constants";
 
-const SceneItem = ({icon, name, onPress, selected}) => {
+const SceneItem = (props) => {
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
-      <View style={[styles.container, selected && styles.selected]}>
-        <MaterialCommunityIcons name={icon} color="white" size={45} />
-        {name && <Text style={styles.name}>{name}</Text>}
+    <TouchableWithoutFeedback onPress={props.onPress}>
+      <View
+        style={[
+          styles.container,
+          props.selected && styles.selected,
+          props.style,
+        ]}
+      >
+        <MaterialCommunityIcons
+          name={props.icon}
+          color={backgroundColor}
+          size={40}
+        />
+        {props.name && <Text style={styles.name}>{props.name}</Text>}
       </View>
     </TouchableWithoutFeedback>
   );
@@ -18,20 +29,20 @@ const styles = StyleSheet.create({
   container: {
     width: 100,
     height: 100,
-    backgroundColor: '#009387',
-    borderRadius: 20,
-    justifyContent: 'center',
-    margin: 5,
-    alignItems: 'center',
+    backgroundColor: "rgba(255,255,255,0.4)",
+    borderRadius: 30,
+    marginHorizontal: 5,
+    paddingVertical: 18,
+    justifyContent: "center",
+    alignItems: "center",
     elevation: 5,
   },
   name: {
     fontSize: 15,
-    color: 'white',
+    color: backgroundColor,
   },
   selected: {
-    borderWidth: 10,
-    borderColor: 'white',
+    backgroundColor: "white",
   },
 });
 

@@ -1,19 +1,13 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { getJwt, getUser, STORAGE_JWT_ACCESS } from "../core/api/AuthService";
+import { getUser } from "../core/api/AuthService";
 
 const Header = () => {
   const [user, setUser] = useState(null);
 
   if (!user) {
-    //getJwt().then(jwt => {
-    //alert(jwt);
-    // })
-
     getUser().then((user) => {
-      alert(user.email);
       if (user) {
         setUser(user);
       }
@@ -23,23 +17,12 @@ const Header = () => {
   return (
     <View style={styles.container}>
       <View>
-        <Text
-          style={{
-            fontSize: 25,
-            fontWeight: "700",
-          }}
-        >
-          Welcome home
+        <Text style={styles.text}>
+          Welcome home <br />
+          {user &&
+            user.email.charAt(0).toUpperCase() +
+              user.email.slice(1, user.email.indexOf("@"))}
         </Text>
-        <Text
-          style={{
-            fontSize: 25,
-            fontWeight: "700",
-          }}
-        >
-          {user && user.email}
-        </Text>
-        <Text style={{ fontSize: 18 }}>Lorem ipsum dolor sit amet</Text>
       </View>
       <View style={styles.logo}>
         <MaterialCommunityIcons name="home" color="white" size={80} />
@@ -50,22 +33,24 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    height: "25%",
+    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 20,
-    paddingTop: 40,
   },
   logo: {
     width: 100,
     height: 100,
-    backgroundColor: "#009387",
+    backgroundColor: "rgba(255,255,255,0.3)",
     borderRadius: 50,
     elevation: 10,
     alignItems: "center",
     justifyContent: "center",
+  },
+  text: {
+    fontSize: 25,
+    fontWeight: "700",
+    color: "white",
   },
 });
 

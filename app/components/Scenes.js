@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import SceneItem from "./SceneItem";
+import SectionTitle from "./SectionTitle";
 
 const Scenes = ({ service, navigation }) => {
   const [data, setData] = useState("");
@@ -12,7 +13,7 @@ const Scenes = ({ service, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Scenes</Text>
+      <SectionTitle title="Scenes" />
       <ScrollView
         style={styles.scenes}
         horizontal={true}
@@ -32,18 +33,11 @@ const Scenes = ({ service, navigation }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    height: "20%",
+    flex: 1,
     flexDirection: "column",
-    paddingHorizontal: 10,
   },
   scenes: {
     flexDirection: "row",
-  },
-  title: {
-    fontSize: 25,
-    fontWeight: "700",
-    paddingBottom: 5,
   },
 });
 
