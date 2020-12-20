@@ -12,7 +12,6 @@ const RoomItem = ({ name, onPress }) => {
         imageStyle={{
           opacity: 0.7,
           borderRadius: 10,
-          elevation: 10,
         }}
         source={roomsImages[name]}
       >

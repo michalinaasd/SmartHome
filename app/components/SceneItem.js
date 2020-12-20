@@ -6,14 +6,35 @@ import { backgroundColor } from "./constants";
 
 const SceneItem = (props) => {
   return (
-    <TouchableWithoutFeedback onPress={props.onPress}>
+    <TouchableWithoutFeedback
+      onPress={props.onPress}
+      onLongPress={props.onLongPress}
+    >
       <View
         style={[
           styles.container,
           props.selected && styles.selected,
           props.style,
+          props.sceneLongPress && styles.edit,
         ]}
       >
+        {props.sceneLongPress && (
+          <View
+            style={{
+              height: 25,
+              width: 25,
+              borderRadius: 20,
+              backgroundColor: "red",
+              position: "absolute",
+              right: -2,
+              top: -5,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <MaterialCommunityIcons name="minus" color="white" size={25} />
+          </View>
+        )}
         <MaterialCommunityIcons
           name={props.icon}
           color={backgroundColor}
@@ -35,7 +56,6 @@ const styles = StyleSheet.create({
     paddingVertical: 18,
     justifyContent: "center",
     alignItems: "center",
-    elevation: 5,
   },
   name: {
     fontSize: 15,
@@ -43,6 +63,12 @@ const styles = StyleSheet.create({
   },
   selected: {
     backgroundColor: "white",
+  },
+  edit: {
+    width: 80,
+    height: 80,
+    backgroundColor: "white",
+    margin: 10,
   },
 });
 

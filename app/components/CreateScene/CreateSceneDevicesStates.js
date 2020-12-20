@@ -19,7 +19,7 @@ const CreateSceneDevicesStates = ({ route, navigation }) => {
         state: value ? "True" : "False",
       });
     });
-    const promise = service.createScene({
+    service.createScene({
       scene: {
         name: sceneName,
         building: "1",
@@ -33,31 +33,29 @@ const CreateSceneDevicesStates = ({ route, navigation }) => {
   return (
     <CreateSceneContainer title="Set states">
       <View style={{ flex: 1 }}>
-        <form>
-          {Object.values(devices).map((item) => (
-            <Controller
-              key={item.id}
-              defaultValue={false}
-              name={`switch${item.id}`}
-              control={control}
-              render={({ onChange, value }) => (
-                <View style={styles.item}>
-                  <MaterialCommunityIcons
-                    name={devicesIcons[item.name]}
-                    color={backgroundColor}
-                    size={40}
-                  />
-                  <Text style={styles.itemText}>
-                    {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
-                  </Text>
-                  <View style={{ justifyContent: "center" }}>
-                    <Switch onValueChange={onChange} value={value} />
-                  </View>
+        {Object.values(devices).map((item) => (
+          <Controller
+            key={item.id}
+            defaultValue={false}
+            name={`switch${item.id}`}
+            control={control}
+            render={({ onChange, value }) => (
+              <View style={styles.item}>
+                <MaterialCommunityIcons
+                  name={devicesIcons[item.name]}
+                  color={backgroundColor}
+                  size={40}
+                />
+                <Text style={styles.itemText}>
+                  {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+                </Text>
+                <View style={{ justifyContent: "center" }}>
+                  <Switch onValueChange={onChange} value={value} />
                 </View>
-              )}
-            />
-          ))}
-        </form>
+              </View>
+            )}
+          />
+        ))}
       </View>
       <AppButton title="Done" onPress={handleSubmit(onSubmit)} />
     </CreateSceneContainer>

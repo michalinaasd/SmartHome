@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Button } from "react-native";
 import Header from "./Header";
 import Scenes from "./Scenes";
 import Rooms from "./Rooms";
@@ -14,6 +14,13 @@ const HomeScreen = ({ route, navigation }) => {
       <Header />
       <Scenes navigation={navigation} service={service} />
       <Rooms navigation={navigation} service={service} />
+      <Button
+        title="Log out"
+        onPress={() => {
+          service.logout();
+          navigation.navigate("Login");
+        }}
+      />
     </ScrollView>
   );
 };

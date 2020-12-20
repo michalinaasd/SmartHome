@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
 import SceneItem from "./SceneItem";
 import SectionTitle from "./SectionTitle";
 
 const Scenes = ({ service, navigation }) => {
   const [data, setData] = useState("");
+  const [sceneEnabled, setSceneEnabled] = useState("");
+  const [sceneEdit, setSceneEdit] = useState("");
+  const isFocused = useIsFocused();
+
   useEffect(() => {
     const promise = service.getData("/api/scenes/");
     promise.then((res) => setData(res));
-  }, []);
+  }, [isFocused]);
 
   return (
     <View style={styles.container}>
@@ -20,7 +25,25 @@ const Scenes = ({ service, navigation }) => {
         showsHorizontalScrollIndicator={false}
       >
         {Object.values(data).map(({ icon, name, id }) => (
-          <SceneItem key={id + name} icon={icon} name={name} />
+          <SceneItem
+            key={id}
+            icon={icon}
+            name={name}
+            onPress={() => {
+              sceneEnabled && service.setSceneState(sceneEnabled, "False");
+              if (sceneEnabled != id) {
+                setSceneEnabled(id);
+                service.setSceneState(id, "True");
+              } else {
+                setSceneEnabled("");
+              }
+            }}
+            onLongPress={() => {
+              setSceneEdit(id);
+            }}
+            selected={sceneEnabled === id}
+            sceneLongPress={sceneEdit === id}
+          />
         ))}
         <SceneItem
           icon="plus"

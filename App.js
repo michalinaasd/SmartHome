@@ -15,6 +15,7 @@ export default function App(...params) {
 
   if (!isLoggedIn) {
     getUser().then((user) => {
+      console.log(user);
       if (user != null) {
         setisLoggedIn(true);
       }

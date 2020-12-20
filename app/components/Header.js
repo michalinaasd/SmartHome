@@ -17,8 +17,8 @@ const Header = () => {
   return (
     <View style={styles.container}>
       <View>
+        <Text style={styles.text}>Welcome home</Text>
         <Text style={styles.text}>
-          Welcome home <br />
           {user &&
             user.email.charAt(0).toUpperCase() +
               user.email.slice(1, user.email.indexOf("@"))}
@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     height: 100,
     backgroundColor: "rgba(255,255,255,0.3)",
     borderRadius: 50,
-    elevation: 10,
     alignItems: "center",
     justifyContent: "center",
   },
