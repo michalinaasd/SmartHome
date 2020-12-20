@@ -9,6 +9,7 @@ const SceneItem = (props) => {
     <TouchableWithoutFeedback
       onPress={props.onPress}
       onLongPress={props.onLongPress}
+      disabled={props.sceneLongPress}
     >
       <View
         style={[
@@ -19,21 +20,23 @@ const SceneItem = (props) => {
         ]}
       >
         {props.sceneLongPress && (
-          <View
-            style={{
-              height: 25,
-              width: 25,
-              borderRadius: 20,
-              backgroundColor: "red",
-              position: "absolute",
-              right: -2,
-              top: -5,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <MaterialCommunityIcons name="minus" color="white" size={25} />
-          </View>
+          <TouchableWithoutFeedback onPress={props.onDelete}>
+            <View
+              style={{
+                height: 25,
+                width: 25,
+                borderRadius: 20,
+                backgroundColor: "red",
+                position: "absolute",
+                right: -40,
+                top: -20,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <MaterialCommunityIcons name="minus" color="white" size={25} />
+            </View>
+          </TouchableWithoutFeedback>
         )}
         <MaterialCommunityIcons
           name={props.icon}

@@ -7,13 +7,22 @@ import SectionTitle from "./SectionTitle";
 
 const Scenes = ({ service, navigation }) => {
   const [data, setData] = useState("");
-  const [sceneEnabled, setSceneEnabled] = useState("");
-  const [sceneEdit, setSceneEdit] = useState("");
+  const [sceneEnabled, setSceneEnabled] = useState(null);
+  const [sceneEdit, setSceneEdit] = useState(null);
   const isFocused = useIsFocused();
 
-  useEffect(() => {
+  const fetchData = () => {
     const promise = service.getData("/api/scenes/");
-    promise.then((res) => setData(res));
+    promise.then((res) => {
+      setSceneEnabled(
+        Object.values(res).filter(({ is_active }) => is_active)[0]?.id
+      );
+      setData(res);
+    });
+  };
+
+  useEffect(() => {
+    fetchData();
   }, [isFocused]);
 
   return (
@@ -24,27 +33,32 @@ const Scenes = ({ service, navigation }) => {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
       >
-        {Object.values(data).map(({ icon, name, id }) => (
-          <SceneItem
-            key={id}
-            icon={icon}
-            name={name}
-            onPress={() => {
-              sceneEnabled && service.setSceneState(sceneEnabled, "False");
-              if (sceneEnabled != id) {
-                setSceneEnabled(id);
-                service.setSceneState(id, "True");
-              } else {
-                setSceneEnabled("");
-              }
-            }}
-            onLongPress={() => {
-              setSceneEdit(id);
-            }}
-            selected={sceneEnabled === id}
-            sceneLongPress={sceneEdit === id}
-          />
-        ))}
+        {Object.values(data).map(({ icon, name, id }) => {
+          return (
+            <SceneItem
+              key={id}
+              icon={icon}
+              name={name}
+              onPress={() => {
+                sceneEnabled && service.setSceneState(sceneEnabled, "False");
+                if (sceneEnabled != id) {
+                  setSceneEnabled(id);
+                  service.setSceneState(id, "True");
+                } else {
+                  setSceneEnabled(null);
+                }
+              }}
+              onLongPress={() => {
+                setSceneEdit(id);
+              }}
+              onDelete={() => {
+                service.deleteScene(id).then(() => fetchData());
+              }}
+              selected={sceneEnabled === id}
+              sceneLongPress={sceneEdit === id}
+            />
+          );
+        })}
         <SceneItem
           icon="plus"
           name="add"

@@ -16,18 +16,19 @@ const CreateSceneDevicesStates = ({ route, navigation }) => {
     Object.entries(data).forEach(([key, value]) => {
       devicesArr.push({
         device_id: key.slice(6),
-        state: value ? "True" : "False",
+        state: value,
       });
     });
-    service.createScene({
-      scene: {
-        name: sceneName,
-        building: "1",
-        icon: sceneIcon,
-      },
-      devices: devicesArr,
-    });
-    navigation.navigate("home");
+    service
+      .createScene({
+        scene: {
+          name: sceneName,
+          building: "1",
+          icon: sceneIcon,
+        },
+        devices: devicesArr,
+      })
+      .then(() => navigation.navigate("home"));
   };
 
   return (

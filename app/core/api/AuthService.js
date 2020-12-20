@@ -164,7 +164,9 @@ export default class AuthService {
           Authorization: `Bearer ${this.token}`,
         }),
         body: JSON.stringify(data),
-      }).catch((reason) => reject(reason));
+      })
+        .then((result) => resolve(result))
+        .catch((reason) => reject(reason));
     });
   }
 
@@ -184,7 +186,21 @@ export default class AuthService {
     });
   }
 
-  
+  async deleteScene(id) {
+    this.token = await getJwt().then((res) => {
+      return res;
+    });
+    return new Promise((resolve, reject) => {
+      fetch(this.url + `/api/scenes/${id}/`, {
+        method: "DELETE",
+        headers: new Headers({
+          Authorization: `Bearer ${this.token}`,
+        }),
+      })
+        .then((result) => resolve(result))
+        .catch((reason) => reject(reason));
+    });
+  }
 }
 
 export const getJwt = async () => {
