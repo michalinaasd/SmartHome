@@ -18,7 +18,6 @@ const HomeScreen = ({ route, navigation }) => {
         title="Log out"
         onPress={() => {
           service.logout();
-          navigation.navigate("Login");
         }}
       />
     </ScrollView>

@@ -8,7 +8,7 @@ import SectionTitle from "./SectionTitle";
 const Scenes = ({ service, navigation }) => {
   const [data, setData] = useState("");
   const [sceneEnabled, setSceneEnabled] = useState(null);
-  const [sceneEdit, setSceneEdit] = useState(null);
+  const [sceneDelete, setSceneDelete] = useState(null);
   const isFocused = useIsFocused();
 
   const fetchData = () => {
@@ -22,6 +22,7 @@ const Scenes = ({ service, navigation }) => {
   };
 
   useEffect(() => {
+    setSceneDelete(null);
     fetchData();
   }, [isFocused]);
 
@@ -40,22 +41,27 @@ const Scenes = ({ service, navigation }) => {
               icon={icon}
               name={name}
               onPress={() => {
-                sceneEnabled && service.setSceneState(sceneEnabled, "False");
-                if (sceneEnabled != id) {
-                  setSceneEnabled(id);
-                  service.setSceneState(id, "True");
+                if (sceneDelete) {
+                  setSceneDelete(null);
                 } else {
-                  setSceneEnabled(null);
+                  sceneEnabled && service.setSceneState(sceneEnabled, "False");
+                  if (sceneEnabled != id) {
+                    setSceneEnabled(id);
+                    service.setSceneState(id, "True");
+                  } else {
+                    setSceneEnabled(null);
+                  }
                 }
               }}
               onLongPress={() => {
-                setSceneEdit(id);
+                setSceneEnabled(null);
+                setSceneDelete(id);
               }}
               onDelete={() => {
                 service.deleteScene(id).then(() => fetchData());
               }}
               selected={sceneEnabled === id}
-              sceneLongPress={sceneEdit === id}
+              deleteScene={sceneDelete === id}
             />
           );
         })}
