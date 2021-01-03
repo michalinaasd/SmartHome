@@ -1,18 +1,30 @@
-import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
-import RoomItem from './RoomItem';
-import {rooms} from './constants';
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, Text } from "react-native";
+import RoomItem from "./RoomItem";
 
-const Rooms = ({navigation}) => {
+const Rooms = ({ service, navigation }) => {
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    const promise = service.getData("/api/rooms/");
+    promise.then((res) => setData(res));
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Rooms</Text>
       <View style={styles.rooms}>
-        {rooms.map((name) => (
+        {Object.values(data).map(({ name, id }) => (
           <RoomItem
-            key={name}
+            key={id}
             name={name}
-            onPress={() => navigation.navigate({name})}
+            onPress={() =>
+              navigation.navigate("room", {
+                name: name,
+                roomID: id,
+                service: service,
+              })
+            }
           />
         ))}
       </View>
@@ -22,19 +34,19 @@ const Rooms = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '65%',
-    flexDirection: 'column',
+    width: "100%",
+    height: "65%",
+    flexDirection: "column",
     paddingHorizontal: 10,
   },
   rooms: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
   },
   title: {
     fontSize: 25,
-    fontWeight: '700',
+    fontWeight: "700",
     paddingBottom: 5,
   },
 });

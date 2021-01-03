@@ -1,16 +1,15 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import RoomScreenDevices from './RoomScreenDevices';
-import RoomScreenTemperature from './RoomScreenTemperature';
-import SectionTitle from '../SectionTitle';
-import RoomScreenLamp from './RoomScreenLamp';
+import React from "react";
+import { StyleSheet, View, Text } from "react-native";
+import RoomScreenDevices from "./RoomScreenDevices";
+import RoomScreenTemperature from "./RoomScreenTemperature";
+import SectionTitle from "../SectionTitle";
+import RoomScreenLamp from "./RoomScreenLamp";
 
-const RoomScreenControlPanel = () => {
+const RoomScreenControlPanel = ({ roomID, service }) => {
   return (
     <View style={styles.container}>
-      <RoomScreenDevices />
-      {/* <RoomScreenTemperature /> */}
-      <RoomScreenLamp />
+      <RoomScreenDevices service={service} roomID={roomID} />
+      <RoomScreenTemperature />
     </View>
   );
 };
@@ -18,7 +17,7 @@ const RoomScreenControlPanel = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 2,
-    flexDirection: 'column',
+    flexDirection: "column",
     padding: 10,
   },
 });

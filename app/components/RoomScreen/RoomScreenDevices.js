@@ -1,26 +1,33 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import RoomScreenControlItem from './RoomScreenControlItem';
-import SectionTitle from '../SectionTitle';
 import RoomScreenTemperature from './RoomScreenTemperature';
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet } from "react-native";
+import RoomScreenControlItem from "./RoomScreenControlItem";
+import SectionTitle from "../SectionTitle";
+import { devicesIcons } from "../constants";
 
-const RoomScreenDevices = () => {
+const RoomScreenDevices = ({ service, roomID }) => {
+  const [data, setData] = useState("");
+  useEffect(() => {
+    const promise = service.getData(`/api/rooms/${roomID}/`);
+    promise.then((res) => setData(res));
+  }, []);
+
   return (
     <View style={styles.container}>
       <SectionTitle title="Devices" />
       <View style={styles.iconsContainer}>
-        <RoomScreenControlItem
-          name="Temperature"
-          icon="thermometer"
-          color="#009387"
-        />
-        <RoomScreenControlItem
-          name="Bedside Lamp"
-          icon="lamp"
-          color="#1f65ff"
-        />
-        <RoomScreenControlItem name="Blinds" icon="blinds" color="#FF4500" />
-        <RoomScreenControlItem name="Humidity" icon="devices" color="#694fad" />
+        {Object.entries(data).flatMap(([key, devices]) => {
+          if (key === "room_devices") {
+            return devices.map(({ name, id }) => (
+              <RoomScreenControlItem
+                key={id}
+                name={name}
+                icon={devicesIcons[name]}
+                color="#009387"
+              />
+            ));
+          } else return [];
+        })}
       </View>
     </View>
   );
@@ -31,8 +38,7 @@ const styles = StyleSheet.create({
     flex: 2,
   },
   iconsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
   },
 });
 

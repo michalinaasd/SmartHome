@@ -1,22 +1,22 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, TextInput} from 'react-native';
-import AppButton from '../AppButton';
-import SceneItem from '../SceneItem';
-import SectionTitle from '../SectionTitle';
+import React, { useState } from "react";
+import { View, StyleSheet, TextInput } from "react-native";
+import AppButton from "../AppButton";
+import SceneItem from "../SceneItem";
+import SectionTitle from "../SectionTitle";
 
-const CreateSceneName = ({route, navigation}) => {
-  const {selectedIcon} = route.params;
-  const [inputValue, onChangeText] = useState('');
+const CreateSceneName = ({ route, navigation }) => {
+  const { selectedIcon } = route.params;
+  const [inputValue, onChangeText] = useState("");
 
   return (
     <View style={styles.container}>
       <SectionTitle title="Create name" />
-      <View style={{flex: 1, alignItems: 'center'}}>
+      <View style={{ flex: 1, alignItems: "center" }}>
         <SceneItem icon={selectedIcon} />
         <TextInput
           style={{
             height: 40,
-            width: '90%',
+            width: "90%",
             borderBottomWidth: 1,
           }}
           placeholder="Name"
@@ -27,7 +27,10 @@ const CreateSceneName = ({route, navigation}) => {
       <AppButton
         title="Next"
         onPress={() => {
-          navigation.navigate('create-scene-devices');
+          navigation.navigate("create-scene-devices", {
+            sceneName: inputValue,
+            sceneIcon: selectedIcon,
+          });
         }}
         disabled={!inputValue}
       />
