@@ -3,21 +3,23 @@ import { View, StyleSheet, TextInput } from "react-native";
 import AppButton from "../AppButton";
 import SceneItem from "../SceneItem";
 import SectionTitle from "../SectionTitle";
+import CreateSceneContainer from "./CreateSceneContainer";
 
 const CreateSceneName = ({ route, navigation }) => {
   const { selectedIcon } = route.params;
   const [inputValue, onChangeText] = useState("");
 
   return (
-    <View style={styles.container}>
-      <SectionTitle title="Create name" />
+    <CreateSceneContainer title="Create name">
       <View style={{ flex: 1, alignItems: "center" }}>
-        <SceneItem icon={selectedIcon} />
+        <SceneItem icon={selectedIcon} selected={true} />
         <TextInput
           style={{
             height: 40,
             width: "90%",
-            borderBottomWidth: 1,
+            borderBottomWidth: 2,
+            color: "white",
+            borderColor: "white",
           }}
           placeholder="Name"
           value={inputValue}
@@ -34,17 +36,10 @@ const CreateSceneName = ({ route, navigation }) => {
         }}
         disabled={!inputValue}
       />
-    </View>
+    </CreateSceneContainer>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 10,
-    paddingTop: 50,
-    paddingBottom: 20,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default CreateSceneName;

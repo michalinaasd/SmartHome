@@ -1,44 +1,23 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import SceneItem from "../SceneItem";
+import { devicesIcons } from "../constants";
 
 const CreateSceneDeviceListItem = (props) => {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
-    <TouchableWithoutFeedback
+    <SceneItem
+      icon={devicesIcons[props.name]}
+      name={props.name.charAt(0).toUpperCase() + props.name.slice(1)}
       onPress={() => {
         isChecked
           ? props.onUnselect(props.id)
           : props.onSelect(props.id, props.name);
         setIsChecked(!isChecked);
       }}
-    >
-      <View
-        style={[
-          styles.item,
-          { backgroundColor: isChecked ? "gray" : "#e3e3e3" },
-        ]}
-      >
-        <Text style={styles.itemText}>{props.name}</Text>
-      </View>
-    </TouchableWithoutFeedback>
+      selected={isChecked}
+    />
   );
 };
-
-const styles = StyleSheet.create({
-  item: {
-    height: 50,
-    marginVertical: 5,
-    elevation: 5,
-    borderRadius: 10,
-    borderColor: "gray",
-  },
-  itemText: {
-    marginVertical: "auto",
-    paddingHorizontal: 10,
-    fontSize: 20,
-  },
-});
 
 export default CreateSceneDeviceListItem;

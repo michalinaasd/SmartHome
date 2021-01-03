@@ -156,8 +156,6 @@ export default class AuthService {
       return res;
     });
 
-    console.log(data);
-
     return new Promise((resolve, reject) => {
       fetch(this.url + "/api/scenes/", {
         method: "post",
@@ -166,7 +164,41 @@ export default class AuthService {
           Authorization: `Bearer ${this.token}`,
         }),
         body: JSON.stringify(data),
+      })
+        .then((result) => resolve(result))
+        .catch((reason) => reject(reason));
+    });
+  }
+
+  async setSceneState(id, state) {
+    this.token = await getJwt().then((res) => {
+      return res;
+    });
+    return new Promise((resolve, reject) => {
+      fetch(this.url + `/api/scenes/${id}/`, {
+        method: "PATCH",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        }),
+        body: JSON.stringify({ is_active: state }),
       }).catch((reason) => reject(reason));
+    });
+  }
+
+  async deleteScene(id) {
+    this.token = await getJwt().then((res) => {
+      return res;
+    });
+    return new Promise((resolve, reject) => {
+      fetch(this.url + `/api/scenes/${id}/`, {
+        method: "DELETE",
+        headers: new Headers({
+          Authorization: `Bearer ${this.token}`,
+        }),
+      })
+        .then((result) => resolve(result))
+        .catch((reason) => reject(reason));
     });
   }
 }
