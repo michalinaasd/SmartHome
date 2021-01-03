@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import CreateSceneDeviceListItem from "./CreateSceneDeviceListItem";
 import SectionTitle from "../SectionTitle";
 
@@ -25,17 +25,24 @@ const CreateSceneDevicesList = ({ service, onSelect, onUnselect }) => {
             <SectionTitle
               title={name.charAt(0).toUpperCase() + name.slice(1)}
             />
-            {Object.values(devices)
-              .filter(({ room }) => room === id)
-              .map(({ id, name }) => (
-                <CreateSceneDeviceListItem
-                  key={id}
-                  name={name.charAt(0).toUpperCase() + name.slice(1)}
-                  id={id}
-                  onSelect={onSelect}
-                  onUnselect={onUnselect}
-                />
-              ))}
+            <View
+              style={{
+                flexDirection: "row",
+                flexWrap: "wrap",
+              }}
+            >
+              {Object.values(devices)
+                .filter(({ room }) => room === id)
+                .map(({ id, name }) => (
+                  <CreateSceneDeviceListItem
+                    key={id}
+                    name={name}
+                    id={id}
+                    onSelect={onSelect}
+                    onUnselect={onUnselect}
+                  />
+                ))}
+            </View>
           </Fragment>
         );
       })}

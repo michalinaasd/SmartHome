@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
-import SectionTitle from "../SectionTitle";
+import { StyleSheet } from "react-native";
 import SceneItem from "../SceneItem";
 import { scenesIcons } from "../constants";
 import AppButton from "../AppButton";
+import CreateSceneContainer from "./CreateSceneContainer";
+import { ScrollView } from "react-native-gesture-handler";
 
 const CreateSceneIcon = ({ navigation }) => {
   const [selectedIcon, setSelectedIcon] = useState("");
 
   return (
-    <View style={styles.container}>
-      <SectionTitle title="Select Icon" />
-      <View style={styles.icons}>
+    <CreateSceneContainer title="Select Icon">
+      <ScrollView contentContainerStyle={styles.icons}>
         {scenesIcons.map((value) => {
           return (
             <SceneItem
@@ -19,10 +19,11 @@ const CreateSceneIcon = ({ navigation }) => {
               icon={value}
               selected={value === selectedIcon}
               onPress={() => setSelectedIcon(value)}
+              style={{ marginVertical: 5 }}
             />
           );
         })}
-      </View>
+      </ScrollView>
       <AppButton
         onPress={() => {
           selectedIcon &&
@@ -33,24 +34,17 @@ const CreateSceneIcon = ({ navigation }) => {
         title="Next"
         disabled={!selectedIcon}
       />
-    </View>
+    </CreateSceneContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 10,
-    paddingTop: 50,
-    paddingBottom: 20,
-  },
   icons: {
     flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-    paddingHorizontal: 5,
-    paddingBottom: 20,
+    padding: 10,
   },
 });
 

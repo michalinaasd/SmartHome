@@ -23,4 +23,10 @@ export const roomsImages = {
   bedroom: require("../assets/bedroom.jpg"),
 };
 
-export const devicesIcons = { temperature: "thermometer", blinds: "blinds" };
+export const devicesIcons = {
+  temperature: "thermometer",
+  blinds: "blinds",
+  bulb: "lightbulb",
+};
+
+export const backgroundColor = "#304D6D";
