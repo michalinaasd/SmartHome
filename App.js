@@ -12,6 +12,7 @@ import {
 import AuthService from "./app/core/api/AuthService";
 
 import { removeStorageItem } from "./app/core/helpers/storage";
+import CameraModule from "./app/components/PicturePicker";
 
 const Drawer = createDrawerNavigator();
 const AuthContext = React.createContext();

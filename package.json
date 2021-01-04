@@ -32,7 +32,9 @@
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "0.14.9",
     "react-refresh": "^0.9.0",
-    "rxjs": "^6.6.3"
+    "rxjs": "^6.6.3",
+    "expo-image-picker": "~9.1.1",
+    "expo-camera": "~9.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

@@ -1,13 +1,14 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Button } from "react-native";
 import RoomScreenControlPanel from "./RoomScreenControlPanel";
 import RoomScreenHeader from "./RoomScreenHeader";
 
-const RoomScreen = ({ route }) => {
+const RoomScreen = ({ navigation, route }) => {
   const { name, roomID, service } = route.params;
   return (
     <View style={styles.container}>
       <RoomScreenHeader name={name} />
+
       <RoomScreenControlPanel roomID={roomID} service={service} />
     </View>
   );

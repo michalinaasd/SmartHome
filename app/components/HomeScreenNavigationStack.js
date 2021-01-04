@@ -6,6 +6,7 @@ import CreateSceneIcon from "./CreateScene/CreateSceneIcon";
 import CreateSceneName from "./CreateScene/CreateSceneName";
 import CreateSceneDevices from "./CreateScene/CreateSceneDevices";
 import CreateSceneDevicesStates from "./CreateScene/CreateSceneDevicesStates";
+import CameraModule from "./PicturePicker";
 
 const Stack = createStackNavigator();
 
@@ -45,6 +46,11 @@ const HomeScreenNavigationStack = ({ route }) => {
         name="create-scene-devices-states"
         initialParams={{ service: service }}
         component={CreateSceneDevicesStates}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="picture-picker"
+        component={CameraModule}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
