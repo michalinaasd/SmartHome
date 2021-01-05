@@ -9,7 +9,7 @@ import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIc
 const RoomScreenControlItem = (props) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => props.onPress(props.name)}>
+      <TouchableOpacity onPress={() => props.onPress(props.name, props.id)}>
         <View style={[styles.icon, { backgroundColor: `${props.color}` }]}>
           <MaterialCommunityIcon name={props.icon} color="white" size={45} />
         </View>

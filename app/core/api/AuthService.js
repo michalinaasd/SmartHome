@@ -201,6 +201,40 @@ export default class AuthService {
         .catch((reason) => reject(reason));
     });
   }
+
+  async toggle(id, state) {
+    this.token = await getJwt().then((res) => {
+      return res;
+    });
+    return new Promise((resolve, reject) => {
+      fetch(this.url + `/api/devices/${id}/`, {
+        method: "PATCH",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        }),
+        body: JSON.stringify({ state: !state }),
+      }).catch((reason) => reject(reason));
+    });
+  }
+
+  async getDeviceState(id) {
+    this.token = await getJwt().then((res) => {
+      return res;
+    });
+    return new Promise((resolve, reject) => {
+      fetch(this.url + `/api/devices/${id}/`, {
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        }),
+      })
+        .then((res) => res.json())
+        .then((result) => resolve(result))
+        .catch((reason) => reject(reason));
+    });
+  }
 }
 
 export const getJwt = async () => {

@@ -21,6 +21,7 @@ const RoomScreenDevices = ({ service, roomID, onPress }) => {
             return devices.map(({ name, id }) => (
               <RoomScreenControlItem
                 key={id}
+                id={id}
                 name={name}
                 icon={devicesIcons[name]}
                 color="#009387"

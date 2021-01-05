@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Switch } from "react-native";
 import Slider from "@react-native-community/slider";
 import SectionTitle from "../SectionTitle";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-const RoomScreenLamp = () => {
+const RoomScreenLamp = (props) => {
   const [targetValue, setTargetValue] = useState(0);
   const [isLampOn, setIsLampOn] = useState(false);
+
+  useEffect(() => {
+    const promise = props.service.getDeviceState(props.id);
+    promise.then((res) => setIsLampOn(res.state));
+  }, []);
 
   return (
     <View style={{ flex: 4 }}>
@@ -24,7 +29,10 @@ const RoomScreenLamp = () => {
         </Text>
         <Switch
           style={{ transform: [{ scaleX: 3 }, { scaleY: 3 }] }}
-          onValueChange={() => setIsLampOn(!isLampOn)}
+          onValueChange={() => {
+            setIsLampOn(!isLampOn);
+            props.service.toggle(props.id, isLampOn);
+          }}
           value={isLampOn}
         />
         <Text style={{ fontSize: 30, fontWeight: "bold", color: "white" }}>
