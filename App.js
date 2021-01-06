@@ -15,7 +15,6 @@ export default function App(...params) {
 
   if (!isLoggedIn) {
     getUser().then((user) => {
-      console.log(user);
       if (user != null) {
         setisLoggedIn(true);
       }
@@ -34,13 +33,11 @@ export default function App(...params) {
           initialParams={{ service: service }}
         />
 
-        {!isLoggedIn && (
-          <Stack.Screen
-            name="Login"
-            component={LoginPage}
-            initialParams={{ service: service }}
-          />
-        )}
+        <Stack.Screen
+          name="Login"
+          component={LoginPage}
+          initialParams={{ service: service }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
