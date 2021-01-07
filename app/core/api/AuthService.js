@@ -12,7 +12,7 @@ const STORAGE_USER = "@AuthStorage:user";
 export default class AuthService {
   constructor() {
     this.url = //"http://192.168.0.105:8000";
-    "https://inzynierka-server.herokuapp.com";
+      "https://inzynierka-server.herokuapp.com";
     this.http = axios.create({
       baseURL: this.url,
     });
@@ -133,7 +133,7 @@ export default class AuthService {
     return setStorageItem(STORAGE_USER, user);
   }
 
-  async getData(endpointUrl) {
+  async getData(endpointUrl, debug) {
     this.token = await getJwt().then((res) => {
       return res;
     });
@@ -153,7 +153,6 @@ export default class AuthService {
 
   async createScene(data) {
     this.token = await getJwt().then((res) => {
-      console.log(res);
       return res;
     });
 
@@ -199,6 +198,28 @@ export default class AuthService {
           Authorization: `Bearer ${this.token}`,
         }),
       })
+        .then((result) => resolve(result))
+        .catch((reason) => reject(reason));
+    });
+  }
+
+  async getMeasuringDevice(id) {
+    this.token = await getJwt().then((res) => {
+      console.log('token -->', res);
+      return res;
+    });
+    console.log('token -->', this.token);
+
+    return new Promise((resolve, reject) => {
+      console.log('token -->', this.token);
+
+      fetch(this.url + `/api/measuring-devices/${id}/daily-measurements`, {
+        method: "get",
+        headers: new Headers({
+          Authorization: `Bearer ${this.token}`,
+        }),
+      })
+        .then((res) => res.json())
         .then((result) => resolve(result))
         .catch((reason) => reject(reason));
     });

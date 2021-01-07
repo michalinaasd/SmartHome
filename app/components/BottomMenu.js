@@ -3,6 +3,7 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import HomeScreenNavigationStack from "./HomeScreenNavigationStack";
 import SectionTitle from "./SectionTitle";
+import StatsScreenNavigationStack from "./StatsScreen/StatsScreenNavigationStack";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -31,7 +32,8 @@ const BottomMenu = ({ route }) => {
       />
       <Tab.Screen
         name="Stats"
-        component={SectionTitle}
+        component={StatsScreenNavigationStack}
+        initialParams={{ service: service }}
         options={{
           tabBarLabel: "Stats",
           tabBarColor: "rgba(237,237,237, 0.5)",
