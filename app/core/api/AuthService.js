@@ -11,7 +11,8 @@ const STORAGE_USER = "@AuthStorage:user";
 
 export default class AuthService {
   constructor() {
-    this.url = "https://inzynierka-server.herokuapp.com";
+    this.url = //"http://192.168.0.105:8000";
+    "https://inzynierka-server.herokuapp.com";
     this.http = axios.create({
       baseURL: this.url,
     });
@@ -174,6 +175,7 @@ export default class AuthService {
     this.token = await getJwt().then((res) => {
       return res;
     });
+
     return new Promise((resolve, reject) => {
       fetch(this.url + `/api/scenes/${id}/`, {
         method: "PATCH",
