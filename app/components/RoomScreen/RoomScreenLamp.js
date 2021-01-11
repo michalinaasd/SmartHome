@@ -10,7 +10,10 @@ const RoomScreenLamp = (props) => {
 
   useEffect(() => {
     const promise = props.service.getDeviceState(props.id);
-    promise.then((res) => setIsLampOn(res.state));
+    promise.then((res) => {
+      setIsLampOn(res.state);
+      setTargetValue(parseInt(res.state_value));
+    });
   }, []);
 
   return (
@@ -50,12 +53,16 @@ const RoomScreenLamp = (props) => {
             />
             <Slider
               style={[styles.slider, { width: 200, height: 40 }]}
+              value={targetValue}
               minimumValue={0}
               step={1}
               maximumValue={100}
               minimumTrackTintColor="rgb(0, 150, 136)"
               maximumTrackTintColor="#777"
-              onValueChange={(value) => setTargetValue(value)}
+              onValueChange={(value) => {
+                setTargetValue(value);
+                props.service.setDeviceValue(props.id, value);
+              }}
             />
             <MaterialCommunityIcons
               name="lightbulb-on"

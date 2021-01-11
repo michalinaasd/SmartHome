@@ -218,6 +218,22 @@ export default class AuthService {
     });
   }
 
+  async setDeviceValue(id, value) {
+    this.token = await getJwt().then((res) => {
+      return res;
+    });
+    return new Promise((resolve, reject) => {
+      fetch(this.url + `/api/devices/${id}/`, {
+        method: "PATCH",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        }),
+        body: JSON.stringify({ state: true, state_value: value }),
+      }).catch((reason) => reject(reason));
+    });
+  }
+
   async getDeviceState(id) {
     this.token = await getJwt().then((res) => {
       return res;
