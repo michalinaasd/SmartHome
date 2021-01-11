@@ -4,12 +4,17 @@ import RoomScreenDevices from "./RoomScreenDevices";
 import RoomScreenTemperature from "./RoomScreenTemperature";
 import SectionTitle from "../SectionTitle";
 import RoomScreenLamp from "./RoomScreenLamp";
+import RoomScreenHumidity from "./RoomScreenHumidity";
+import { ScrollView } from "react-native-gesture-handler";
 
 const RoomScreenControlPanel = ({ roomID, service }) => {
   return (
     <View style={styles.container}>
-      <RoomScreenDevices service={service} roomID={roomID} />
-      <RoomScreenTemperature />
+      <ScrollView>
+        <RoomScreenDevices service={service} roomID={roomID} />
+        <RoomScreenTemperature />
+        <RoomScreenHumidity />
+      </ScrollView>
     </View>
   );
 };

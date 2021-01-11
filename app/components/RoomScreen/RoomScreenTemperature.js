@@ -17,7 +17,15 @@ const RoomScreenTemperature = () => {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: 'column', textAlign: 'center'}}>
-        <SectionTitle title="Set target temperature" />
+      <Text
+          style={{
+            fontSize: 40,
+            textAlign: 'center',
+          }}
+        >
+          {currentTemperature}°C
+        </Text>
+
         <View
           style={{
             flexDirection: 'row',
@@ -47,15 +55,6 @@ const RoomScreenTemperature = () => {
           </TouchableOpacity>
         </View>
         <Text style={styles.temperature}>{targetTemperature}°C</Text>
-        <SectionTitle title="Current temperature" />
-        <Text
-          style={{
-            fontSize: 40,
-            textAlign: 'center',
-          }}
-        >
-          {currentTemperature}°C
-        </Text>
       </View>
     </View>
   );
