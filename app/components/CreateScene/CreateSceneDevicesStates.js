@@ -7,6 +7,7 @@ import { backgroundColor, devicesIcons } from "../constants";
 import { Switch } from "react-native-gesture-handler";
 import CreateSceneContainer from "./CreateSceneContainer";
 import Slider from "@react-native-community/slider";
+import ValueSlider from "../Slider";
 
 const CreateSceneDevicesStates = ({ route, navigation }) => {
   const { handleSubmit, control } = useForm();
@@ -68,19 +69,15 @@ const CreateSceneDevicesStates = ({ route, navigation }) => {
                     defaultValue={100}
                     render={({ onChange, value }) => (
                       <View style={{ padding: 10 }}>
-                        <Text style={{ textAlign: "center" }}>Brightness</Text>
-                        <Slider
-                          style={styles.slider}
-                          onValueChange={(value) => {
+                        <Text style={styles.sliderValue}>Brightness</Text>
+                        <ValueSlider
+                          onChange={(value) => {
                             onChange(value);
                           }}
                           value={value}
-                          valueLabelDisplay="auto"
-                          minimumValue={0}
-                          step={1}
-                          maximumValue={100}
+                          icons={false}
                         />
-                        <Text style={{ textAlign: "center" }}>{value}%</Text>
+                        <Text style={styles.sliderValue}>{value}%</Text>
                       </View>
                     )}
                   />
@@ -112,10 +109,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     fontSize: 20,
   },
-  slider: {
-    alignItems: "center",
-    width: "100%",
-    height: 40,
+  sliderValue: {
+    textAlign: "center",
   },
 });
 
