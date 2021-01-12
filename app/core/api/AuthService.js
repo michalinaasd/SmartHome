@@ -202,7 +202,7 @@ export default class AuthService {
     });
   }
 
-  async toggle(id, state) {
+  async toggle(id, state, state_value) {
     this.token = await getJwt().then((res) => {
       return res;
     });
@@ -213,7 +213,7 @@ export default class AuthService {
           "Content-Type": "application/json",
           Authorization: `Bearer ${this.token}`,
         }),
-        body: JSON.stringify({ state: !state }),
+        body: JSON.stringify({ state: !state, state_value: state_value }),
       }).catch((reason) => reject(reason));
     });
   }

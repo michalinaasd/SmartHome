@@ -34,7 +34,7 @@ const RoomScreenLamp = (props) => {
           style={{ transform: [{ scaleX: 3 }, { scaleY: 3 }] }}
           onValueChange={() => {
             setIsLampOn(!isLampOn);
-            props.service.toggle(props.id, isLampOn);
+            props.service.toggle(props.id, isLampOn, targetValue);
           }}
           value={isLampOn}
         />

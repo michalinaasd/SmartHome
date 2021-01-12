@@ -11,6 +11,7 @@ const RoomScreenControlPanel = ({ roomID, service }) => {
     device: null,
     id: null,
   });
+
   return (
     <View style={styles.container}>
       <RoomScreenDevices
@@ -22,7 +23,7 @@ const RoomScreenControlPanel = ({ roomID, service }) => {
       {selectedDevice.device === "bulb" ? (
         <RoomScreenLamp service={service} id={selectedDevice.id} />
       ) : selectedDevice.device === "blinds" ? (
-        <RoomScreenBlinds />
+        <RoomScreenBlinds service={service} id={selectedDevice.id} />
       ) : (
         <RoomScreenTemperature />
       )}
