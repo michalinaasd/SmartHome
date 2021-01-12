@@ -4,31 +4,27 @@ import { TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ValueController = (params) => {
-    const icon = params.icon;
-    const min = params.min;
-    const max = params.max;
     const step = params.step || 1;
-    const suffix = params.suffix;
 
     const [currentValue, setCurrentValue] = useState(params.value);
     const [targetValue, setTargetValue] = useState(params.targetValue);
-    const [isMin, setIsMin] = useState(targetValue <= min);
-    const [isMax, setIsMax] = useState(targetValue >= max);
+    const [isMin, setIsMin] = useState(params.targetValue <= params.min);
+    const [isMax, setIsMax] = useState(params.targetValue >= params.max);
 
     const changeTargetValue = (value) => {
-        var newValue = parseFloat(targetValue) + (parseInt(value) * step);
+        var newValue = parseFloat(targetValue) + (parseInt(params.value) * step);
 
         setIsMax(false);
         setIsMin(false);
 
-        if (newValue <= min) {
-            newValue = min;
+        if (newValue <= params.min) {
+            newValue = params.min;
 
             setIsMin(true);
         }
 
-        if (newValue >= max) {
-            newValue = max;
+        if (newValue >= params.max) {
+            newValue = params.max;
 
             setIsMax(true);
         }
@@ -45,7 +41,7 @@ const ValueController = (params) => {
                         textAlign: 'center',
                     }}
                 >
-                    {currentValue}{suffix}
+                    {currentValue}{params.suffix}
                 </Text>
                 <View
                     style={{
@@ -63,7 +59,7 @@ const ValueController = (params) => {
 
                     <View style={styles.controllerContainer}>
                         <MaterialCommunityIcons
-                            name={icon}
+                            name={params.icon}
                             color="#607D8B"
                             size={70}
                         />
@@ -75,7 +71,7 @@ const ValueController = (params) => {
                         </View>
                     </TouchableOpacity>
                 </View>
-                <Text style={styles.value}>{targetValue}{suffix}</Text>
+                <Text style={styles.value}>{targetValue}{params.suffix}</Text>
             </View>
         </View>
     );
