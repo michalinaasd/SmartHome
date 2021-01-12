@@ -55,7 +55,7 @@ const ValueController = (params) => {
                         paddingHorizontal: 60,
                     }}
                 >
-                    <TouchableOpacity style={[styles.buttonContainer, isMin ? styles.buttonDisabled : {}]} disabled={isMin} onPress={() => changeTargetValue(-1)}>
+                    <TouchableOpacity style={[styles.buttonContainer, isMin && styles.buttonDisabled]} disabled={isMin} onPress={() => changeTargetValue(-1)}>
                         <View>
                             <MaterialCommunityIcons name="minus" color="#607D8B" size={40} />
                         </View>
@@ -69,7 +69,7 @@ const ValueController = (params) => {
                         />
                     </View>
 
-                    <TouchableOpacity style={[styles.buttonContainer, isMax ? styles.buttonDisabled : {}]} disabled={isMax} onPress={() => changeTargetValue(1)}>
+                    <TouchableOpacity style={[styles.buttonContainer, isMax && styles.buttonDisabled]} disabled={isMax} onPress={() => changeTargetValue(1)}>
                         <View>
                             <MaterialCommunityIcons name="plus" color="#607D8B" size={40} />
                         </View>
