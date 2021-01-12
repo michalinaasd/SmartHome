@@ -2,15 +2,38 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import SectionTitle from '../SectionTitle';
 
-const RoomScreenHumidity = () => {
+const ValueController = (params) => {
+    const icon = params.icon || 'thermometer';
+    const min = params.min || 0;
+    const max = params.max || 100;
+    const step = params.step || 1;
+    const suffix = params.suffix || '%';
 
-    const [currentHumidity, setCurrentHumidity] = useState(23);
-    const [targetHumidity, setTargetHumidity] = useState(25);
+    const [currentValue, setCurrentValue] = useState(params.value || 50);
+    const [targetValue, setTargetValue] = useState(params.targetValue || 50);
+    const [isMin, setIsMin] = useState(targetValue <= min);
+    const [isMax, setIsMax] = useState(targetValue >= max);
 
-    const changeTargetHumidity = (value) => {
-        setTargetHumidity(targetHumidity + parseInt(value));
+    const changeTargetValue = (value) => {
+        var newValue = parseFloat(targetValue) + (parseInt(value) * step);
+
+        setIsMax(false);
+        setIsMin(false);
+
+        if (newValue <= min) {
+            newValue = min;
+
+            setIsMin(true);
+        }
+
+        if (newValue >= max) {
+            newValue = max;
+
+            setIsMax(true);
+        }
+
+        setTargetValue(newValue);
     }
 
     return (
@@ -22,8 +45,8 @@ const RoomScreenHumidity = () => {
                         textAlign: 'center',
                     }}
                 >
-                    {currentHumidity}%
-        </Text>
+                    {currentValue}{suffix}
+                </Text>
                 <View
                     style={{
                         flexDirection: 'row',
@@ -32,28 +55,27 @@ const RoomScreenHumidity = () => {
                         paddingHorizontal: 60,
                     }}
                 >
-                    <TouchableOpacity style={styles.buttonContainer} onPress={() => changeTargetHumidity(-1)}>
+                    <TouchableOpacity style={[styles.buttonContainer, isMin ? styles.buttonDisabled : {}]} disabled={isMin} onPress={() => changeTargetValue(-1)}>
                         <View>
                             <MaterialCommunityIcons name="minus" color="#607D8B" size={40} />
                         </View>
                     </TouchableOpacity>
 
-                    <View style={styles.humidityContainer}>
+                    <View style={styles.controllerContainer}>
                         <MaterialCommunityIcons
-                            name="water-percent"
+                            name={icon}
                             color="#607D8B"
                             size={70}
                         />
                     </View>
 
-                    <TouchableOpacity style={styles.buttonContainer} onPress={() => changeTargetHumidity(1)}>
+                    <TouchableOpacity style={[styles.buttonContainer, isMax ? styles.buttonDisabled : {}]} disabled={isMax} onPress={() => changeTargetValue(1)}>
                         <View>
                             <MaterialCommunityIcons name="plus" color="#607D8B" size={40} />
                         </View>
                     </TouchableOpacity>
                 </View>
-                <Text style={styles.humidity}>{targetHumidity}%</Text>
-                {/* <SectionTitle title="Current humidity" /> */}
+                <Text style={styles.value}>{targetValue}{suffix}</Text>
             </View>
         </View>
     );
@@ -64,7 +86,7 @@ const styles = StyleSheet.create({
         flex: 4,
         marginTop: 20,
     },
-    humidityContainer: {
+    controllerContainer: {
         width: 90,
         height: 90,
         borderRadius: 50,
@@ -80,7 +102,10 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         elevation: 5,
     },
-    humidity: {
+    buttonDisabled: {
+        backgroundColor: '#999999'
+    },
+    value: {
         textAlign: 'center',
         paddingTop: 16,
         paddingBottom: 24,
@@ -89,4 +114,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default RoomScreenHumidity;
+export default ValueController;
