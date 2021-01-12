@@ -9,8 +9,8 @@ const RoomScreenControlPanel = ({ roomID, service }) => {
     <View style={styles.container}>
       <ScrollView>
         <RoomScreenDevices service={service} roomID={roomID} />
-        <ValueController suffix="°C" min="18" max="24" value="22" targetValue="21" />
-        <ValueController icon="water-percent" suffix="%" min="30" max="80" value="35" />
+        <ValueController icon="thermometer" suffix="°C" min="18" max="24" value="22" targetValue="21" />
+        <ValueController icon="water-percent" suffix="%" min="30" max="80" value="35" targetValue="50" />
       </ScrollView>
     </View>
   );

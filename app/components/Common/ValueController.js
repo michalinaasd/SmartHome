@@ -4,14 +4,14 @@ import { TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ValueController = (params) => {
-    const icon = params.icon || 'thermometer';
-    const min = params.min || 0;
-    const max = params.max || 100;
+    const icon = params.icon;
+    const min = params.min;
+    const max = params.max;
     const step = params.step || 1;
-    const suffix = params.suffix || '%';
+    const suffix = params.suffix;
 
-    const [currentValue, setCurrentValue] = useState(params.value || 50);
-    const [targetValue, setTargetValue] = useState(params.targetValue || 50);
+    const [currentValue, setCurrentValue] = useState(params.value);
+    const [targetValue, setTargetValue] = useState(params.targetValue);
     const [isMin, setIsMin] = useState(targetValue <= min);
     const [isMax, setIsMax] = useState(targetValue >= max);
 
