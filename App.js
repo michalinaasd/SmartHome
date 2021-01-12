@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { BottomMenu } from "./app/components/BottomMenu";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LoginPage from "./app/components/LoginPage";
 import { createStackNavigator } from "@react-navigation/stack";
 import { getUser } from "./app/core/api/AuthService";
@@ -8,25 +8,24 @@ import AuthService from "./app/core/api/AuthService";
 
 const Stack = createStackNavigator();
 
-export default function App(...params) {
+export default function App() {
   const service = new AuthService();
 
-  const [isLoggedIn, setisLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  if (!isLoggedIn) {
+  useEffect(() => {
     getUser().then((user) => {
-      console.log(user);
       if (user != null) {
-        setisLoggedIn(true);
+        setIsLoggedIn(true);
       }
     });
-  }
+  }, []);
 
   return (
     <NavigationContainer>
-      <Stack.Navigator
+      {isLoggedIn && <Stack.Navigator
         headerMode="none"
-        initialRouteName={isLoggedIn ? "Home" : "Login"}
+        initialRouteName="Home"
       >
         <Stack.Screen
           name="Home"
@@ -34,14 +33,31 @@ export default function App(...params) {
           initialParams={{ service: service }}
         />
 
-        {!isLoggedIn && (
+        <Stack.Screen
+          name="Login"
+          component={LoginPage}
+          initialParams={{ service: service }}
+        />
+      </Stack.Navigator>}
+
+      {!isLoggedIn &&
+        <Stack.Navigator
+          headerMode="none"
+          initialRouteName="Login"
+        >
+          <Stack.Screen
+            name="Home"
+            component={BottomMenu}
+            initialParams={{ service: service }}
+          />
+
           <Stack.Screen
             name="Login"
             component={LoginPage}
             initialParams={{ service: service }}
           />
-        )}
-      </Stack.Navigator>
+        </Stack.Navigator>
+      }
     </NavigationContainer>
   );
 }

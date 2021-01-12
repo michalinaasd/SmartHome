@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./HomeScreen";
 import RoomScreen from "./RoomScreen/RoomScreen";
