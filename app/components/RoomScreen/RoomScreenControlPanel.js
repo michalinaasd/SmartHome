@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import RoomScreenDevices from "./RoomScreenDevices";
-import RoomScreenTemperature from "./RoomScreenTemperature";
 import RoomScreenLamp from "./RoomScreenLamp";
 import RoomScreenBlinds from "./RoomScreenBlinds";
 import ValueController from "../Common/ValueController";
