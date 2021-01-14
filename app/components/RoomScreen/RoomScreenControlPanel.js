@@ -24,13 +24,7 @@ const RoomScreenControlPanel = ({ roomID, service }) => {
         <RoomScreenLamp service={service} id={selectedDevice.id} />
       ) : selectedDevice.device === "blinds" ? (
         <RoomScreenBlinds service={service} id={selectedDevice.id} />
-      ) : (
-        selectedDevice.device === "temperature" && (
-          <RoomScreenTemperature service={service} id={selectedDevice.id} />
-        )
-      )}
-      <ScrollView>
-        <RoomScreenDevices service={service} roomID={roomID} />
+      ) : selectedDevice.device === "temperature" ? (
         <ValueController
           icon="thermometer"
           suffix="°C"
@@ -38,16 +32,23 @@ const RoomScreenControlPanel = ({ roomID, service }) => {
           max="24"
           value="22"
           targetValue="21"
+          service={service}
+          id={selectedDevice.id}
         />
-        <ValueController
-          icon="water-percent"
-          suffix="%"
-          min="30"
-          max="80"
-          value="35"
-          targetValue="50"
-        />
-      </ScrollView>
+      ) : (
+        selectedDevice.device === "humidity" && (
+          <ValueController
+            icon="water-percent"
+            suffix="%"
+            min="30"
+            max="80"
+            value="35"
+            targetValue="50"
+            service={service}
+            id={selectedDevice.id}
+          />
+        )
+      )}
     </View>
   );
 };
