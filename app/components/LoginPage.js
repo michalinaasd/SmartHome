@@ -134,12 +134,12 @@ const LoginPage = ({ route, navigation }) => {
                 size={24}
               />
             ) : (
-              <MaterialCommunityIcons
-                name="eye-off-outline"
-                color="rgba(0,0,0)"
-                size={24}
-              />
-            )}
+                <MaterialCommunityIcons
+                  name="eye-off-outline"
+                  color="rgba(0,0,0)"
+                  size={24}
+                />
+              )}
           </View>
         </TouchableOpacity>
       </View>
