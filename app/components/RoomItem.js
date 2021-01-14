@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, ImageBackground, Text } from "react-native";
+import { StyleSheet, ImageBackground } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { roomsImages } from "./constants";
 import SectionTitle from "./SectionTitle";
@@ -15,7 +15,7 @@ const RoomItem = ({ name, onPress }) => {
         }}
         source={roomsImages[name]}
       >
-        <SectionTitle title={name} />
+        <SectionTitle title={name.charAt(0).toUpperCase() + name.slice(1)} />
       </ImageBackground>
     </TouchableWithoutFeedback>
   );

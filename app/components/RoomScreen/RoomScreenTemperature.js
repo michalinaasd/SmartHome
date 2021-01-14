@@ -1,17 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import SectionTitle from "../SectionTitle";
 
-const RoomScreenTemperature = () => {
-  //TODO: pobieranie temperatury z czujnika i zadanej temperatury
+const RoomScreenTemperature = (props) => {
   const [currentTemperature, setCurrentTemperature] = useState(23);
   const [targetTemperature, setTargetTemperature] = useState(25);
 
   const changeTargetTemperature = (value) => {
     setTargetTemperature(targetTemperature + parseInt(value));
   };
+
+  useEffect(() => {
+    let measuringDeviceId;
+    const promise = props.service.getDeviceState(props.id);
+    promise.then((res) => {
+      measuringDeviceId = res.measuring_device;
+      setTargetTemperature(parseInt(res.state_value));
+      props.service.getMeasurment(measuringDeviceId).then((res) => {
+        setCurrentTemperature(res.last_measure_value);
+      });
+    });
+  }, []);
+
+  console.log(targetTemperature);
 
   return (
     <View style={styles.container}>
@@ -27,9 +40,12 @@ const RoomScreenTemperature = () => {
         >
           <TouchableOpacity
             style={styles.buttonContainer}
-            onPress={() =>
-              targetTemperature > 19 && changeTargetTemperature(-1)
-            }
+            onPress={() => {
+              if (targetTemperature > 19) {
+                changeTargetTemperature(-1);
+                props.service.setDeviceValue(props.id, targetTemperature - 1);
+              }
+            }}
           >
             <View>
               <MaterialCommunityIcons name="minus" color="#607D8B" size={40} />
@@ -46,7 +62,12 @@ const RoomScreenTemperature = () => {
 
           <TouchableOpacity
             style={styles.buttonContainer}
-            onPress={() => targetTemperature < 28 && changeTargetTemperature(1)}
+            onPress={() => {
+              if (targetTemperature < 28) {
+                changeTargetTemperature(1);
+                props.service.setDeviceValue(props.id, targetTemperature + 1);
+              }
+            }}
           >
             <View>
               <MaterialCommunityIcons name="plus" color="#607D8B" size={40} />

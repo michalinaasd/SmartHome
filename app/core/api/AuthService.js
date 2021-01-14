@@ -246,6 +246,13 @@ export default class AuthService {
           "Content-Type": "application/json",
           Authorization: `Bearer ${this.token}`,
         }),
+      })
+        .then((res) => res.json())
+        .then((result) => resolve(result))
+        .catch((reason) => reject(reason));
+    });
+  }
+
   async getMeasuringDevice(id) {
     this.token = await getJwt().then((res) => {
       return res;
@@ -259,7 +266,27 @@ export default class AuthService {
         headers: new Headers({
           Authorization: `Bearer ${this.token}`,
         }),
-        redirect: "follow"
+        redirect: "follow",
+      })
+        .then((res) => res.json())
+        .then((result) => resolve(result))
+        .catch((reason) => reject(reason));
+    });
+  }
+  async getMeasurment(id) {
+    this.token = await getJwt().then((res) => {
+      return res;
+    });
+
+    console.log(this.token);
+
+    return new Promise((resolve, reject) => {
+      fetch(this.url + `/api/measuring-devices/${id}/`, {
+        method: "GET",
+        headers: new Headers({
+          Authorization: `Bearer ${this.token}`,
+        }),
+        redirect: "follow",
       })
         .then((res) => res.json())
         .then((result) => resolve(result))

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 import RoomScreenDevices from "./RoomScreenDevices";
 import RoomScreenTemperature from "./RoomScreenTemperature";
-import SectionTitle from "../SectionTitle";
 import RoomScreenLamp from "./RoomScreenLamp";
 import RoomScreenBlinds from "./RoomScreenBlinds";
 
@@ -25,7 +24,9 @@ const RoomScreenControlPanel = ({ roomID, service }) => {
       ) : selectedDevice.device === "blinds" ? (
         <RoomScreenBlinds service={service} id={selectedDevice.id} />
       ) : (
-        <RoomScreenTemperature />
+        selectedDevice.device === "temperature" && (
+          <RoomScreenTemperature service={service} id={selectedDevice.id} />
+        )
       )}
     </View>
   );
