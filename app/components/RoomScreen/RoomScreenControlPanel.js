@@ -4,6 +4,7 @@ import RoomScreenDevices from "./RoomScreenDevices";
 import RoomScreenTemperature from "./RoomScreenTemperature";
 import RoomScreenLamp from "./RoomScreenLamp";
 import RoomScreenBlinds from "./RoomScreenBlinds";
+import ValueController from "../Common/ValueController";
 
 const RoomScreenControlPanel = ({ roomID, service }) => {
   const [selectedDevice, setSelectedDevice] = useState({
@@ -28,6 +29,25 @@ const RoomScreenControlPanel = ({ roomID, service }) => {
           <RoomScreenTemperature service={service} id={selectedDevice.id} />
         )
       )}
+      <ScrollView>
+        <RoomScreenDevices service={service} roomID={roomID} />
+        <ValueController
+          icon="thermometer"
+          suffix="°C"
+          min="18"
+          max="24"
+          value="22"
+          targetValue="21"
+        />
+        <ValueController
+          icon="water-percent"
+          suffix="%"
+          min="30"
+          max="80"
+          value="35"
+          targetValue="50"
+        />
+      </ScrollView>
     </View>
   );
 };
