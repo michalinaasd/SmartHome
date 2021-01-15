@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
-  Image,
   Platform,
 } from "react-native";
 import { Camera } from "expo-camera";
@@ -32,6 +31,7 @@ const CameraModule = (props) => {
         ref={(ref) => {
           setCameraRef(ref);
         }}
+        navigation={props.navigation}
       >
         <View
           style={{
@@ -45,15 +45,20 @@ const CameraModule = (props) => {
               backgroundColor: "black",
               flexDirection: "row",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "center",
             }}
           >
             <TouchableOpacity
               onPress={async () => {
                 if (cameraRef) {
-                  let photo = await cameraRef.takePictureAsync();
-                  props.setImage(photo);
-                  props.setModalVisible();
+                  cameraRef
+                    .takePictureAsync({
+                      base64: true,
+                      quality: 1,
+                    })
+                    .then((data) => {
+                      props.setImage(data);
+                    });
                 }
               }}
             >
@@ -89,8 +94,7 @@ const CameraModule = (props) => {
     </Modal>
   );
 };
-export default function ImagePickerExample() {
-  const [image, setImage] = useState(null);
+export default function ImagePickerExample(props) {
   const [camera, setShowCamera] = useState(false);
   const [hasPermission, setHasPermission] = useState(null);
 
@@ -103,28 +107,44 @@ export default function ImagePickerExample() {
     })();
   }, []);
 
+  const send = (result) => {
+    props.route.params.service.updatePicture(
+      props.route.params.id,
+      Platform.OS !== "web"
+        ? `data:image/jpg;base64,${result.base64}`
+        : result.uri
+    );
+    props.navigation.navigate("room", {
+      name: props.route.params.name,
+      image:
+        Platform.OS !== "web"
+          ? `data:image/jpg;base64,${result.base64}`
+          : result.uri,
+      roomID: props.route.params.id,
+      service: props.route.params.service,
+    });
+  };
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
+      base64: true,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      setImage(result.uri);
+    if (result) {
+      send(result);
     }
   };
   if (Platform.OS === "web") {
-    console.log("web");
     return (
       <TouchableOpacity style={styles.button} onPress={pickImage}>
         <Text style={styles.text}> Pick from gallery </Text>
       </TouchableOpacity>
     );
   }
+
   if (hasPermission === null) {
     return <View />;
   }
@@ -156,12 +176,16 @@ export default function ImagePickerExample() {
           </View>
         </View>
       </Modal>
-      )}
+
       {camera && (
         <CameraModule
           showModal={camera}
           setModalVisible={() => setShowCamera(false)}
-          setImage={(result) => setImage(result.uri)}
+          setImage={(result) => {
+            if (result.base64) {
+              send(result);
+            }
+          }}
         />
       )}
     </View>

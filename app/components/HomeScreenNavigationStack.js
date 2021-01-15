@@ -51,6 +51,7 @@ const HomeScreenNavigationStack = ({ route }) => {
       <Stack.Screen
         name="picture-picker"
         component={CameraModule}
+        initialParams={{ service: service }}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
