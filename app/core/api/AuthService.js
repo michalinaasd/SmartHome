@@ -216,11 +216,27 @@ export default class AuthService {
         headers: new Headers({
           Authorization: `Bearer ${this.token}`,
         }),
-        redirect: "follow"
+        redirect: "follow",
       })
         .then((res) => res.json())
         .then((result) => resolve(result))
         .catch((reason) => reject(reason));
+    });
+  }
+  async updatePicture(id, image) {
+    this.token = await getJwt().then((res) => {
+      return res;
+    });
+
+    return new Promise((resolve, reject) => {
+      fetch(this.url + `/api/rooms/${id}/`, {
+        method: "PATCH",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        }),
+        body: JSON.stringify({ icon: image }),
+      }).catch((reason) => reject(reason));
     });
   }
 }

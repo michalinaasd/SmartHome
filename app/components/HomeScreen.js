@@ -12,6 +12,7 @@ const HomeScreen = ({ route, navigation }) => {
   return (
     <ScrollView style={styles.container}>
       <Header />
+
       <Scenes navigation={navigation} service={service} />
       <Rooms navigation={navigation} service={service} />
       <TouchableWithoutFeedback

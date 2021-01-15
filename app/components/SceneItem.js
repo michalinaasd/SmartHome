@@ -1,9 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
-import {
-  TouchableHighlight,
-  TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { backgroundColor } from "./constants";
 

@@ -6,6 +6,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { getUser } from "./app/core/api/AuthService";
 import AuthService from "./app/core/api/AuthService";
 
+import CameraModule from "./app/components/PicturePicker";
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -23,28 +25,8 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      {isLoggedIn && <Stack.Navigator
-        headerMode="none"
-        initialRouteName="Home"
-      >
-        <Stack.Screen
-          name="Home"
-          component={BottomMenu}
-          initialParams={{ service: service }}
-        />
-
-        <Stack.Screen
-          name="Login"
-          component={LoginPage}
-          initialParams={{ service: service }}
-        />
-      </Stack.Navigator>}
-
-      {!isLoggedIn &&
-        <Stack.Navigator
-          headerMode="none"
-          initialRouteName="Login"
-        >
+      {isLoggedIn && (
+        <Stack.Navigator headerMode="none" initialRouteName="Home">
           <Stack.Screen
             name="Home"
             component={BottomMenu}
@@ -57,7 +39,23 @@ export default function App() {
             initialParams={{ service: service }}
           />
         </Stack.Navigator>
-      }
+      )}
+
+      {!isLoggedIn && (
+        <Stack.Navigator headerMode="none" initialRouteName="Login">
+          <Stack.Screen
+            name="Home"
+            component={BottomMenu}
+            initialParams={{ service: service }}
+          />
+
+          <Stack.Screen
+            name="Login"
+            component={LoginPage}
+            initialParams={{ service: service }}
+          />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 }
