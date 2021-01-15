@@ -15,17 +15,19 @@ const Rooms = ({ service, navigation }) => {
     <View style={styles.container}>
       <SectionTitle title="Rooms" />
       <View style={styles.rooms}>
-        {Object.values(data).map(({ name, id }) => (
+        {Object.values(data).map(({ name, id, icon }) => (
           <RoomItem
             key={id}
             name={name}
-            onPress={() =>
+            image={icon}
+            onPress={() => {
               navigation.navigate("room", {
                 name: name,
+                image: icon,
                 roomID: id,
                 service: service,
-              })
-            }
+              });
+            }}
           />
         ))}
       </View>

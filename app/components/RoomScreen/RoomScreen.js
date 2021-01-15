@@ -4,11 +4,18 @@ import { backgroundColor } from "../constants";
 import RoomScreenControlPanel from "./RoomScreenControlPanel";
 import RoomScreenHeader from "./RoomScreenHeader";
 
-const RoomScreen = ({ route }) => {
-  const { name, roomID, service } = route.params;
+const RoomScreen = ({ navigation, route }) => {
+  const { name, roomID, service, image } = route.params;
+
   return (
     <View style={styles.container}>
-      <RoomScreenHeader name={name} />
+      <RoomScreenHeader
+        name={name}
+        navigation={navigation}
+        image={image}
+        service={service}
+        roomID={roomID}
+      />
       <RoomScreenControlPanel roomID={roomID} service={service} />
     </View>
   );

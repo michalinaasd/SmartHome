@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TextInput } from "react-native";
+import { View, StyleSheet, TextInput, Text } from "react-native";
 import AppButton from "../AppButton";
+import { sceneNameErrorMessage } from "../constants";
 import SceneItem from "../SceneItem";
-import SectionTitle from "../SectionTitle";
 import CreateSceneContainer from "./CreateSceneContainer";
 
 const CreateSceneName = ({ route, navigation }) => {
   const { selectedIcon } = route.params;
   const [inputValue, onChangeText] = useState("");
+  const [isValid, validate] = useState(true);
+
+  console.log(isValid);
 
   return (
     <CreateSceneContainer title="Create name">
@@ -23,9 +26,16 @@ const CreateSceneName = ({ route, navigation }) => {
           }}
           placeholder="Name"
           value={inputValue}
-          onChangeText={(text) => onChangeText(text)}
+          onChangeText={(text) => {
+            onChangeText(text);
+            validate(text.length <= 15 && text.length >= 4);
+          }}
         />
+        {!isValid && (
+          <Text style={{ color: "red" }}>{sceneNameErrorMessage}</Text>
+        )}
       </View>
+
       <AppButton
         title="Next"
         onPress={() => {
@@ -34,7 +44,7 @@ const CreateSceneName = ({ route, navigation }) => {
             sceneIcon: selectedIcon,
           });
         }}
-        disabled={!inputValue}
+        disabled={!inputValue && isValid}
       />
     </CreateSceneContainer>
   );

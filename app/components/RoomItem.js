@@ -4,7 +4,7 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { roomsImages } from "./constants";
 import SectionTitle from "./SectionTitle";
 
-const RoomItem = ({ name, onPress }) => {
+const RoomItem = ({ name, onPress, image }) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <ImageBackground
@@ -13,7 +13,7 @@ const RoomItem = ({ name, onPress }) => {
           opacity: 0.7,
           borderRadius: 10,
         }}
-        source={roomsImages[name]}
+        source={image ? { uri: image } : roomsImages[name]}
       >
         <SectionTitle title={name.charAt(0).toUpperCase() + name.slice(1)} />
       </ImageBackground>

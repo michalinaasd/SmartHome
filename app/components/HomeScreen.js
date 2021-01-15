@@ -3,7 +3,7 @@ import { StyleSheet, Text } from "react-native";
 import Header from "./Header";
 import Scenes from "./Scenes";
 import Rooms from "./Rooms";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { backgroundColor } from "./constants";
 import { StatusBar } from "react-native";
 
@@ -14,9 +14,10 @@ const HomeScreen = ({ route, navigation }) => {
     <ScrollView style={styles.container}>
       <StatusBar hidden />
       <Header />
+
       <Scenes navigation={navigation} service={service} />
       <Rooms navigation={navigation} service={service} />
-      <TouchableOpacity
+      <TouchableWithoutFeedback
         title="Log out"
         style={styles.logOut}
         onPress={() => {
@@ -26,7 +27,7 @@ const HomeScreen = ({ route, navigation }) => {
         }}
       >
         <Text styles={styles.buttonLogin}>Log Out</Text>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
     </ScrollView>
   );
 };
