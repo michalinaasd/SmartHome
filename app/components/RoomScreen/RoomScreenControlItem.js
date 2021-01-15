@@ -1,14 +1,20 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import {
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
-const RoomScreenControlItem = ({ name, icon, color }) => {
+const RoomScreenControlItem = (props) => {
   return (
     <View style={styles.container}>
-      <View style={[styles.icon, { backgroundColor: `${color}` }]}>
-        <MaterialCommunityIcon name={icon} color="white" size={45} />
-      </View>
-      <Text style={styles.name}>{name}</Text>
+      <TouchableOpacity onPress={() => props.onPress(props.name, props.id)}>
+        <View style={[styles.icon, { backgroundColor: `${props.color}` }]}>
+          <MaterialCommunityIcon name={props.icon} color="white" size={45} />
+        </View>
+      </TouchableOpacity>
+      <Text style={styles.name}>{props.name}</Text>
     </View>
   );
 };

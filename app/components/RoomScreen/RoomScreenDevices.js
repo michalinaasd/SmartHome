@@ -4,7 +4,7 @@ import RoomScreenControlItem from "./RoomScreenControlItem";
 import SectionTitle from "../SectionTitle";
 import { devicesIcons } from "../constants";
 
-const RoomScreenDevices = ({ service, roomID }) => {
+const RoomScreenDevices = ({ service, roomID, onPress }) => {
   const [data, setData] = useState("");
   useEffect(() => {
     const promise = service.getData(`/api/rooms/${roomID}/`);
@@ -20,9 +20,11 @@ const RoomScreenDevices = ({ service, roomID }) => {
             return devices.map(({ name, id }) => (
               <RoomScreenControlItem
                 key={id}
+                id={id}
                 name={name}
                 icon={devicesIcons[name]}
                 color="#009387"
+                onPress={onPress}
               />
             ));
           } else return [];

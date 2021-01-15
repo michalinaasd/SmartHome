@@ -203,6 +203,56 @@ export default class AuthService {
     });
   }
 
+  async toggle(id, state, state_value) {
+    this.token = await getJwt().then((res) => {
+      return res;
+    });
+    return new Promise((resolve, reject) => {
+      fetch(this.url + `/api/devices/${id}/`, {
+        method: "PATCH",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        }),
+        body: JSON.stringify({ state: !state, state_value: state_value }),
+      }).catch((reason) => reject(reason));
+    });
+  }
+
+  async setDeviceValue(id, value) {
+    this.token = await getJwt().then((res) => {
+      return res;
+    });
+    return new Promise((resolve, reject) => {
+      fetch(this.url + `/api/devices/${id}/`, {
+        method: "PATCH",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        }),
+        body: JSON.stringify({ state: true, state_value: value }),
+      }).catch((reason) => reject(reason));
+    });
+  }
+
+  async getDeviceState(id) {
+    this.token = await getJwt().then((res) => {
+      return res;
+    });
+    return new Promise((resolve, reject) => {
+      fetch(this.url + `/api/devices/${id}/`, {
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        }),
+      })
+        .then((res) => res.json())
+        .then((result) => resolve(result))
+        .catch((reason) => reject(reason));
+    });
+  }
+
   async getMeasuringDevice(id) {
     this.token = await getJwt().then((res) => {
       return res;
@@ -212,6 +262,26 @@ export default class AuthService {
 
     return new Promise((resolve, reject) => {
       fetch(this.url + `/api/measuring-devices/${id}/daily-measurements/`, {
+        method: "GET",
+        headers: new Headers({
+          Authorization: `Bearer ${this.token}`,
+        }),
+        redirect: "follow",
+      })
+        .then((res) => res.json())
+        .then((result) => resolve(result))
+        .catch((reason) => reject(reason));
+    });
+  }
+  async getMeasurment(id) {
+    this.token = await getJwt().then((res) => {
+      return res;
+    });
+
+    console.log(this.token);
+
+    return new Promise((resolve, reject) => {
+      fetch(this.url + `/api/measuring-devices/${id}/`, {
         method: "GET",
         headers: new Headers({
           Authorization: `Bearer ${this.token}`,

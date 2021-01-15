@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
+import { backgroundColor } from "../constants";
 import RoomScreenControlPanel from "./RoomScreenControlPanel";
 import RoomScreenHeader from "./RoomScreenHeader";
 
@@ -23,6 +24,7 @@ const RoomScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: backgroundColor,
   },
 });
 export default RoomScreen;
