@@ -19,7 +19,7 @@ const RoomScreenControlPanel = ({ roomID, service }) => {
         onPress={(device, id) => setSelectedDevice({ device: device, id: id })}
       />
 
-      {selectedDevice.device === "bulb" ? (
+      {selectedDevice.device === "lamp" ? (
         <RoomScreenLamp service={service} id={selectedDevice.id} />
       ) : selectedDevice.device === "blinds" ? (
         <RoomScreenBlinds service={service} id={selectedDevice.id} />

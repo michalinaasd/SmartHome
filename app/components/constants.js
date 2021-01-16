@@ -26,7 +26,8 @@ export const roomsImages = {
 export const devicesIcons = {
   temperature: "thermometer",
   blinds: "blinds",
-  bulb: "lightbulb",
+  lamp: "lightbulb",
+  humidity: "water-percent",
 };
 
 export const backgroundColor = "#304D6D";
