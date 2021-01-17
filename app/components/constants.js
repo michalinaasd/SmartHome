@@ -32,3 +32,4 @@ export const devicesIcons = {
 };
 
 export const backgroundColor = "#304D6D";
+export const sceneNameErrorMessage = "Name length should be in range 4-15";

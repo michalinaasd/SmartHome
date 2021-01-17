@@ -15,9 +15,10 @@ const MeasuringDeviceItem = ({ name, onPress }) => {
 const styles = StyleSheet.create({
     deviceItem: {
         width: "100%",
-        paddingVertical: 10,
-        marginVertical: 10,
-        elevation: 10,
+        paddingVertical: 8,
+        marginVertical: 8,
+        paddingLeft: 8,
+        elevation: 2,
         justifyContent: "center",
         borderBottomWidth: 1,
         borderBottomColor: "#fff"

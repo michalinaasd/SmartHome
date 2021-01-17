@@ -1,30 +1,33 @@
 import React from "react";
-import { View, StyleSheet, Button, Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import Header from "./Header";
 import Scenes from "./Scenes";
 import Rooms from "./Rooms";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { backgroundColor } from "./constants";
+import { StatusBar } from "react-native";
 
 const HomeScreen = ({ route, navigation }) => {
   const { service } = route.params;
 
   return (
     <ScrollView style={styles.container}>
+      <StatusBar hidden />
       <Header />
+
       <Scenes navigation={navigation} service={service} />
       <Rooms navigation={navigation} service={service} />
-      <TouchableOpacity
+      <TouchableWithoutFeedback
         title="Log out"
         style={styles.logOut}
         onPress={() => {
           service.logout().then(() => {
-            navigation.navigate('Login');
+            navigation.navigate("Login");
           });
         }}
       >
         <Text styles={styles.buttonLogin}>Log Out</Text>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
     </ScrollView>
   );
 };
@@ -45,7 +48,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 40,
     marginTop: 20,
-  }
+  },
 });
 
 export default HomeScreen;
