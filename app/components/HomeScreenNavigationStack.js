@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./HomeScreen";
 import RoomScreen from "./RoomScreen/RoomScreen";
@@ -7,6 +7,7 @@ import CreateSceneName from "./CreateScene/CreateSceneName";
 import CreateSceneDevices from "./CreateScene/CreateSceneDevices";
 import CreateSceneDevicesStates from "./CreateScene/CreateSceneDevicesStates";
 import SettingsView from "./SettingsView";
+import CameraModule from "./PicturePicker";
 
 const Stack = createStackNavigator();
 
@@ -52,6 +53,11 @@ const HomeScreenNavigationStack = ({ route, navigation }) => {
         name="settings"
         initialParams={{ service: service }}
         component={SettingsView}
+      />
+      <Stack.Screen
+        name="picture-picker"
+        component={CameraModule}
+        initialParams={{ service: service }}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -5,13 +5,16 @@ import Scenes from "./Scenes";
 import Rooms from "./Rooms";
 import { ScrollView } from "react-native-gesture-handler";
 import { backgroundColor } from "./constants";
+import { StatusBar } from "react-native";
 
 const HomeScreen = ({ route, navigation }) => {
   const { service } = route.params;
 
   return (
     <ScrollView style={styles.container}>
+      <StatusBar hidden />
       <Header />
+
       <Scenes navigation={navigation} service={service} />
       <Rooms navigation={navigation} service={service} />
     </ScrollView>
