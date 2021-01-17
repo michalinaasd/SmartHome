@@ -6,11 +6,12 @@ import CreateSceneIcon from "./CreateScene/CreateSceneIcon";
 import CreateSceneName from "./CreateScene/CreateSceneName";
 import CreateSceneDevices from "./CreateScene/CreateSceneDevices";
 import CreateSceneDevicesStates from "./CreateScene/CreateSceneDevicesStates";
+import SettingsView from "./SettingsView";
 import CameraModule from "./PicturePicker";
 
 const Stack = createStackNavigator();
 
-const HomeScreenNavigationStack = ({ route }) => {
+const HomeScreenNavigationStack = ({ route, navigation }) => {
   const { service } = route.params;
 
   return (
@@ -47,6 +48,11 @@ const HomeScreenNavigationStack = ({ route }) => {
         initialParams={{ service: service }}
         component={CreateSceneDevicesStates}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="settings"
+        initialParams={{ service: service }}
+        component={SettingsView}
       />
       <Stack.Screen
         name="picture-picker"

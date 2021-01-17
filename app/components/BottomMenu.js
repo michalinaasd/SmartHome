@@ -4,6 +4,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import HomeScreenNavigationStack from "./HomeScreenNavigationStack";
 import SectionTitle from "./SectionTitle";
 import StatsScreenNavigationStack from "./StatsScreen/StatsScreenNavigationStack";
+import SettingsView from "./SettingsView";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -44,7 +45,8 @@ const BottomMenu = ({ route }) => {
       />
       <Tab.Screen
         name="Settings"
-        component={SectionTitle}
+        component={SettingsView}
+        initialParams={{ service: service }}
         options={{
           tabBarLabel: "Setting",
           tabBarColor: "rgba(237,237,237, 0.5)",
