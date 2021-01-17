@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
   },
   iconsContainer: {
     flexDirection: "row",
-  },
+    justifyContent: "space-evenly",
+  }
 });
 
 export default RoomScreenDevices;

@@ -15,7 +15,7 @@ const RoomItem = ({ name, onPress }) => {
         }}
         source={roomsImages[name]}
       >
-        <SectionTitle title={name} />
+        <SectionTitle title={name && name.charAt(0).toUpperCase() + name.slice(1)} />
       </ImageBackground>
     </TouchableWithoutFeedback>
   );
