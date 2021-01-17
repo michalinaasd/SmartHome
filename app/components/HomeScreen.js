@@ -1,9 +1,9 @@
 import React from "react";
-import { View, StyleSheet, Button, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import Header from "./Header";
 import Scenes from "./Scenes";
 import Rooms from "./Rooms";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 import { backgroundColor } from "./constants";
 
 const HomeScreen = ({ route, navigation }) => {
@@ -14,17 +14,6 @@ const HomeScreen = ({ route, navigation }) => {
       <Header />
       <Scenes navigation={navigation} service={service} />
       <Rooms navigation={navigation} service={service} />
-      <TouchableOpacity
-        title="Log out"
-        style={styles.logOut}
-        onPress={() => {
-          service.logout().then(() => {
-            navigation.navigate('Login');
-          });
-        }}
-      >
-        <Text styles={styles.buttonLogin}>Log Out</Text>
-      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -34,17 +23,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: backgroundColor,
     padding: 15,
-  },
-  logOut: {
-    width: 120,
-    height: 45,
-    borderRadius: 8,
-    backgroundColor: "rgba(255,255,255,0.7)",
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
-    marginBottom: 40,
-    marginTop: 20,
   }
 });
 
