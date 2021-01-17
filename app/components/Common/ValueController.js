@@ -16,12 +16,12 @@ const ValueController = (params) => {
     const promise = params.service.getDeviceState(params.id);
     promise.then((res) => {
       measuringDeviceId = res.measuring_device;
-      setTargetValue(parseInt(res.state_value));
+      setTargetValue(parseInt(res.state_value) ? parseInt(res.state_value) : 0);
       params.service.getMeasurment(measuringDeviceId).then((res) => {
-        setCurrentValue(res.last_measure_value);
+        setCurrentValue(parseFloat(res.last_measure_value) ? parseFloat(res.last_measure_value) : 0);
       });
     });
-  }, []);
+  }, [params]);
 
   const changeTargetValue = (value) => {
     var newValue = parseFloat(targetValue) + parseInt(value) * step;
@@ -49,13 +49,8 @@ const ValueController = (params) => {
     <View style={styles.container}>
       <View style={{ flexDirection: "column", textAlign: "center" }}>
         <Text
-          style={{
-            fontSize: 40,
-            textAlign: "center",
-          }}
-        >
-          {currentValue}
-          {params.suffix}
+          style={styles.text}
+        > Current: {currentValue}{params.suffix}
         </Text>
         <View
           style={{
@@ -93,9 +88,8 @@ const ValueController = (params) => {
             </View>
           </TouchableOpacity>
         </View>
-        <Text style={styles.value}>
-          {targetValue}
-          {params.suffix}
+        <Text style={styles.text}>
+          Target: {targetValue}{params.suffix}
         </Text>
       </View>
     </View>
@@ -126,13 +120,14 @@ const styles = StyleSheet.create({
   buttonDisabled: {
     backgroundColor: "#999999",
   },
-  value: {
+  text: {
     textAlign: "center",
     paddingTop: 16,
     paddingBottom: 24,
     fontSize: 20,
     fontWeight: "bold",
-  },
+    color: "#fff"
+  }
 });
 
 export default ValueController;

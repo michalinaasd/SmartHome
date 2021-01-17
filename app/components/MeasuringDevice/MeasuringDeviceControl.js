@@ -5,7 +5,7 @@ import { Dimensions } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { padStart } from "lodash";
 
-const lastCount = 12;
+const lastCount = 10;
 
 const MeasuringDeviceControl = ({ deviceId, service }) => {
     const [labels, setLabels] = useState([""]);
@@ -46,7 +46,7 @@ const MeasuringDeviceControl = ({ deviceId, service }) => {
                             },
                         ],
                     }}
-                    width={Dimensions.get("window").width - 30}
+                    width={Dimensions.get("window").width - 60}
                     height={300}
                     verticalLabelRotation={45}
                     chartConfig={{

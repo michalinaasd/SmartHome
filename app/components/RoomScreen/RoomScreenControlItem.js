@@ -35,8 +35,9 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   name: {
-    fontSize: 15,
+    fontSize: 14,
     textAlign: "center",
+    color: "#fff",
   },
 });
 
