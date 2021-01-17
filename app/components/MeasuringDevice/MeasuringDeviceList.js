@@ -4,6 +4,7 @@ import SectionTitle from "../SectionTitle";
 import MeasuringDeviceItem from "./MeasuringDeviceItem";
 import { List } from 'react-native-paper';
 import MeasuringDevice from "./MeasuringDevice";
+import { backgroundColor, backgroundColorLight, backgroundColorLighter } from "../constants";
 
 const MeasuringDeviceList = ({ service, navigation }) => {
   const [data, setData] = useState("");
