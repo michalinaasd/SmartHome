@@ -32,4 +32,6 @@ export const devicesIcons = {
 };
 
 export const backgroundColor = "#304D6D";
+export const backgroundColorLight = "rgba(255, 255, 255, 0.4)";
+export const backgroundColorLighter = "rgba(255, 255, 255, 0.32)";
 export const sceneNameErrorMessage = "Name length should be in range 4-15";
