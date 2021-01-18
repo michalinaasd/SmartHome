@@ -5,6 +5,7 @@ import RoomScreenHeader from "../RoomScreen/RoomScreenHeader";
 import SectionTitle from "../SectionTitle";
 import MeasuringDeviceControl from "./MeasuringDeviceControl";
 
+
 const MeasuringDevice = ({ route }) => {
   const { name, deviceId, service } = route.params;
   return (
