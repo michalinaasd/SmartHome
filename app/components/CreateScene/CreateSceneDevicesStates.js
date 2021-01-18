@@ -14,7 +14,6 @@ const CreateSceneDevicesStates = ({ route, navigation }) => {
   const { devices, service, sceneName, sceneIcon } = route.params;
 
   const onSubmit = (data) => {
-    console.log(data);
     let devicesArr = [];
     Object.entries(data)
       .filter(([key, value]) => !key.includes("slider"))
@@ -62,7 +61,7 @@ const CreateSceneDevicesStates = ({ route, navigation }) => {
                   </View>
                 </View>
 
-                {item.name === "bulb" && value && (
+                {item.name === "lamp" && value && (
                   <Controller
                     name={`slider${item.id}`}
                     control={control}

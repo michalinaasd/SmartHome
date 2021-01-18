@@ -28,6 +28,7 @@ export const devicesIcons = {
   blinds: "blinds",
   lamp: "lightbulb",
   humidity: "water-percent",
+  humidifier: "water",
 };
 
 export const backgroundColor = "#304D6D";

@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 5,
   },
   name: {
     fontSize: 15,

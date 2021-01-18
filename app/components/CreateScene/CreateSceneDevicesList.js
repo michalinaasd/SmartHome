@@ -33,15 +33,19 @@ const CreateSceneDevicesList = ({ service, onSelect, onUnselect }) => {
             >
               {Object.values(devices)
                 .filter(({ room }) => room === id)
-                .map(({ id, name }) => (
-                  <CreateSceneDeviceListItem
-                    key={id}
-                    name={name}
-                    id={id}
-                    onSelect={onSelect}
-                    onUnselect={onUnselect}
-                  />
-                ))}
+                .map(({ id, name }) => {
+                  if (name !== "temperature" && name !== "humidity") {
+                    return (
+                      <CreateSceneDeviceListItem
+                        key={id}
+                        name={name}
+                        id={id}
+                        onSelect={onSelect}
+                        onUnselect={onUnselect}
+                      />
+                    );
+                  }
+                })}
             </View>
           </Fragment>
         );

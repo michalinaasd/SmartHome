@@ -32,11 +32,11 @@ const BottomMenu = ({ route }) => {
         }}
       />
       <Tab.Screen
-        name="Stats"
+        name="Statistics"
         component={StatsScreenNavigationStack}
         initialParams={{ service: service }}
         options={{
-          tabBarLabel: "Stats",
+          tabBarLabel: "Statistics",
           tabBarColor: "rgba(237,237,237, 0.5)",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="chart-bar" color={color} size={26} />
@@ -48,7 +48,7 @@ const BottomMenu = ({ route }) => {
         component={SettingsView}
         initialParams={{ service: service }}
         options={{
-          tabBarLabel: "Setting",
+          tabBarLabel: "Settings",
           tabBarColor: "rgba(237,237,237, 0.5)",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="cogs" color={color} size={26} />

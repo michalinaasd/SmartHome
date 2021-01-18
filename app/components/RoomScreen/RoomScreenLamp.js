@@ -11,8 +11,12 @@ const RoomScreenLamp = (props) => {
   useEffect(() => {
     const promise = props.service.getDeviceState(props.id);
     promise.then((res) => {
-      setIsLampOn(res.state);
-      setTargetValue(parseInt(res.state_value));
+      if (res.state) {
+        setIsLampOn(res.state);
+      }
+      if (res.state_value) {
+        setTargetValue(parseInt(res.state_value));
+      }
     });
   }, []);
 

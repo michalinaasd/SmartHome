@@ -16,7 +16,6 @@ const Rooms = ({ service, navigation }) => {
       <SectionTitle title="Rooms" />
       <View style={styles.rooms}>
         {Object.values(data).map(({ name, id, icon }) => {
-          console.log(id);
           return (
             <RoomItem
               key={id}
