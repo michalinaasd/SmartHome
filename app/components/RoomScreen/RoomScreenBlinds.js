@@ -21,9 +21,6 @@ const RoomScreenBlinds = (props) => {
     <View style={{ flex: 4 }}>
       <SectionTitle title="Blinds control" />
       <View style={{ alignItems: "center" }}>
-        <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>
-          UP
-        </Text>
         <TouchableOpacity
           style={{ margin: 18 }}
           onPressIn={() => {
@@ -94,9 +91,6 @@ const RoomScreenBlinds = (props) => {
             />
           </View>
         </TouchableOpacity>
-        <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>
-          DOWN
-        </Text>
       </View>
     </View>
   );

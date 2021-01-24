@@ -5,49 +5,55 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import ValueSlider from "../Slider";
 
 const RoomScreenLamp = (props) => {
-  const [targetValue, setTargetValue] = useState(0);
+  const [targetValue, setTargetValue] = useState(null);
   const [isLampOn, setIsLampOn] = useState(false);
 
   useEffect(() => {
     const promise = props.service.getDeviceState(props.id);
+    console.log("lamp");
     promise.then((res) => {
+      console.log(res);
       if (res.state) {
         setIsLampOn(res.state);
+        console.log(res.state);
       }
       if (res.state_value) {
         setTargetValue(parseInt(res.state_value));
+        console.log(res.state_value);
       }
     });
   }, []);
-
+  console.log("lampa");
   return (
     <View style={{ flex: 4 }}>
       <SectionTitle title="Lamp toggle" />
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          paddingHorizontal: 30,
-          paddingVertical: 30,
-        }}
-      >
-        <Text style={{ fontSize: 30, fontWeight: "bold", color: "white" }}>
-          OFF
-        </Text>
-        <Switch
-          style={{ width: 40, transform: [{ scaleX: 2.5 }, { scaleY: 2.5 }] }}
-          onValueChange={() => {
-            setIsLampOn(!isLampOn);
-            props.service.toggle(props.id, isLampOn, targetValue);
+      {targetValue && (
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingHorizontal: 30,
+            paddingVertical: 30,
           }}
-          value={isLampOn}
-        />
-        <Text style={{ fontSize: 30, fontWeight: "bold", color: "white" }}>
-          ON
-        </Text>
-      </View>
-      {isLampOn && (
+        >
+          <Text style={{ fontSize: 30, fontWeight: "bold", color: "white" }}>
+            OFF
+          </Text>
+          <Switch
+            style={{ width: 40, transform: [{ scaleX: 2.5 }, { scaleY: 2.5 }] }}
+            onValueChange={() => {
+              setIsLampOn(!isLampOn);
+              props.service.toggle(props.id, isLampOn, targetValue);
+            }}
+            value={isLampOn}
+          />
+          <Text style={{ fontSize: 30, fontWeight: "bold", color: "white" }}>
+            ON
+          </Text>
+        </View>
+      )}
+      {isLampOn && targetValue && (
         <View>
           <SectionTitle title="Lamp brightness" />
           <ValueSlider

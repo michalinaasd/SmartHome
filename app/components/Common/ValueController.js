@@ -6,19 +6,25 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 const ValueController = (params) => {
   const step = params.step || 1;
 
-  const [currentValue, setCurrentValue] = useState(params.value);
-  const [targetValue, setTargetValue] = useState(params.targetValue);
-  const [isMin, setIsMin] = useState(params.targetValue <= params.min);
-  const [isMax, setIsMax] = useState(params.targetValue >= params.max);
+  const [currentValue, setCurrentValue] = useState(null);
+  const [targetValue, setTargetValue] = useState(null);
+  const [isMin, setIsMin] = useState(null);
+  const [isMax, setIsMax] = useState(null);
 
   useEffect(() => {
     let measuringDeviceId;
+    setCurrentValue(null);
+    setTargetValue(null);
     const promise = params.service.getDeviceState(params.id);
     promise.then((res) => {
       measuringDeviceId = res.measuring_device;
       setTargetValue(parseInt(res.state_value) ? parseInt(res.state_value) : 0);
       params.service.getMeasurment(measuringDeviceId).then((res) => {
-        setCurrentValue(parseFloat(res.last_measure_value) ? parseFloat(res.last_measure_value) : 0);
+        setCurrentValue(
+          parseFloat(res.last_measure_value)
+            ? parseFloat(res.last_measure_value)
+            : 0
+        );
       });
     });
   }, [params]);
@@ -48,10 +54,12 @@ const ValueController = (params) => {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "column", textAlign: "center" }}>
-        <Text
-          style={styles.text}
-        > Current: {currentValue}{params.suffix}
+        <Text style={styles.text}>
+          {" "}
+          Current: {currentValue}
+          {params.suffix}
         </Text>
+
         <View
           style={{
             flexDirection: "row",
@@ -89,7 +97,8 @@ const ValueController = (params) => {
           </TouchableOpacity>
         </View>
         <Text style={styles.text}>
-          Target: {targetValue}{params.suffix}
+          Target: {targetValue}
+          {params.suffix}
         </Text>
       </View>
     </View>
@@ -126,8 +135,8 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
     fontSize: 20,
     fontWeight: "bold",
-    color: "#fff"
-  }
+    color: "#fff",
+  },
 });
 
 export default ValueController;

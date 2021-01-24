@@ -5,7 +5,12 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 const ValueSlider = (props) => {
   return (
-    <View style={styles.sliderContainer}>
+    <View
+      style={[
+        styles.sliderContainer,
+        props.icons ? { width: "80%" } : { width: "100%" },
+      ]}
+    >
       {props.icons && (
         <MaterialCommunityIcons
           name="lightbulb-outline"
@@ -40,7 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    width: "90%",
+    width: "80%",
     paddingHorizontal: 10,
     paddingTop: 10,
   },
