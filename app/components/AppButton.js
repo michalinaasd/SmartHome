@@ -1,11 +1,11 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { backgroundColor } from "./constants";
 
 const AppButton = ({ onPress, title, disabled }) => {
   return (
-    <TouchableWithoutFeedback
+    <TouchableOpacity
       onPress={onPress}
       style={[
         styles.appButtonContainer,
@@ -14,7 +14,7 @@ const AppButton = ({ onPress, title, disabled }) => {
       disabled={disabled}
     >
       <Text style={styles.appButtonText}>{title}</Text>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 };
 

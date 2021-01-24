@@ -35,35 +35,40 @@ const Scenes = ({ service, navigation }) => {
         showsHorizontalScrollIndicator={false}
       >
         {Object.values(data).map(({ icon, name, id }) => {
-          return (
-            <SceneItem
-              key={id}
-              icon={icon}
-              name={name}
-              onPress={() => {
-                if (sceneDelete) {
-                  setSceneDelete(null);
-                } else {
-                  sceneEnabled && service.setSceneState(sceneEnabled, "False");
-                  if (sceneEnabled != id) {
-                    setSceneEnabled(id);
-                    service.setSceneState(id, "True");
+          if (id) {
+            return (
+              <SceneItem
+                key={id}
+                icon={icon}
+                name={name}
+                onPress={() => {
+                  if (sceneDelete) {
+                    setSceneDelete(null);
                   } else {
-                    setSceneEnabled(null);
+                    sceneEnabled &&
+                      service.setSceneState(sceneEnabled, "False");
+                    if (sceneEnabled != id) {
+                      setSceneEnabled(id);
+                      service.setSceneState(id, "True");
+                    } else {
+                      setSceneEnabled(null);
+                    }
                   }
-                }
-              }}
-              onLongPress={() => {
-                setSceneEnabled(null);
-                setSceneDelete(id);
-              }}
-              onDelete={() => {
-                service.deleteScene(id).then(() => fetchData());
-              }}
-              selected={sceneEnabled === id}
-              deleteScene={sceneDelete === id}
-            />
-          );
+                }}
+                onLongPress={() => {
+                  console.log("long");
+                  setSceneEnabled(null);
+                  setSceneDelete(id);
+                }}
+                onDelete={() => {
+                  console.log("delete");
+                  service.deleteScene(id).then(() => fetchData());
+                }}
+                selected={sceneEnabled === id}
+                deleteScene={sceneDelete === id}
+              />
+            );
+          }
         })}
         <SceneItem
           icon="plus"

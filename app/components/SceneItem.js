@@ -1,6 +1,9 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { backgroundColor } from "./constants";
 
@@ -13,7 +16,7 @@ const SceneItem = (props) => {
             style={styles.deleteIcon}
             onPress={props.onDelete}
           >
-            <MaterialCommunityIcons name="minus" color="white" size={25} />
+            <MaterialCommunityIcons name="minus" color="white" size={30} />
           </TouchableWithoutFeedback>
           <View style={{ top: -10, alignItems: "center" }}>
             <MaterialCommunityIcons
@@ -30,7 +33,7 @@ const SceneItem = (props) => {
     );
   } else {
     return (
-      <TouchableWithoutFeedback
+      <TouchableOpacity
         onPress={props.onPress}
         onLongPress={props.onLongPress}
         disabled={props.sceneLongPress}
@@ -49,7 +52,7 @@ const SceneItem = (props) => {
           />
           {props.name && <Text style={styles.name}>{props.name}</Text>}
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     );
   }
 };
@@ -73,14 +76,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   deleteContainer: {
-    width: 80,
-    height: 80,
+    width: 90,
+    height: 90,
     backgroundColor: "white",
     margin: 10,
   },
   deleteIcon: {
-    width: 25,
-    height: 25,
+    width: 30,
+    height: 30,
     backgroundColor: "red",
     borderRadius: 20,
     flexDirection: "row",
