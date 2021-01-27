@@ -258,8 +258,6 @@ export default class AuthService {
       return res;
     });
 
-    console.log(this.token);
-
     return new Promise((resolve, reject) => {
       fetch(this.url + `/api/measuring-devices/${id}/daily-measurements/`, {
         method: "GET",
@@ -277,8 +275,6 @@ export default class AuthService {
     this.token = await getJwt().then((res) => {
       return res;
     });
-
-    console.log(this.token);
 
     return new Promise((resolve, reject) => {
       fetch(this.url + `/api/measuring-devices/${id}/`, {

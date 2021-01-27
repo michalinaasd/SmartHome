@@ -6,10 +6,6 @@ import CreateSceneContainer from "./CreateSceneContainer";
 const CreateSceneDevices = ({ route, navigation }) => {
   const [selectedDevices, setSelectedDevices] = useState([]);
 
-  useEffect(() => {
-    console.log("check");
-  }, [selectedDevices]);
-
   return (
     <CreateSceneContainer title="Select devices">
       <CreateSceneDevicesList
@@ -23,7 +19,6 @@ const CreateSceneDevices = ({ route, navigation }) => {
         onUnselect={(deviceID) => {
           let arr = selectedDevices;
           for (var i = 0; i < arr.length; i++) {
-            console.log(arr);
             if (arr[i]["id"] === deviceID) {
               arr = arr.splice(i, i);
             }

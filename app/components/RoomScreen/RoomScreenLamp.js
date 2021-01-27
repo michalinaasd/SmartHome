@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Switch } from "react-native";
 import SectionTitle from "../SectionTitle";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import ValueSlider from "../Slider";
 
 const RoomScreenLamp = (props) => {
@@ -10,20 +9,15 @@ const RoomScreenLamp = (props) => {
 
   useEffect(() => {
     const promise = props.service.getDeviceState(props.id);
-    console.log("lamp");
     promise.then((res) => {
-      console.log(res);
       if (res.state) {
         setIsLampOn(res.state);
-        console.log(res.state);
       }
       if (res.state_value) {
         setTargetValue(parseInt(res.state_value));
-        console.log(res.state_value);
       }
     });
   }, []);
-  console.log("lampa");
   return (
     <View style={{ flex: 4 }}>
       <SectionTitle title="Lamp toggle" />

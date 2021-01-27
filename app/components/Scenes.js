@@ -56,12 +56,10 @@ const Scenes = ({ service, navigation }) => {
                   }
                 }}
                 onLongPress={() => {
-                  console.log("long");
                   setSceneEnabled(null);
                   setSceneDelete(id);
                 }}
                 onDelete={() => {
-                  console.log("delete");
                   service.deleteScene(id).then(() => fetchData());
                 }}
                 selected={sceneEnabled === id}
