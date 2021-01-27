@@ -1,6 +1,9 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import { backgroundColor } from "./constants";
 
 const AppButton = ({ onPress, title, disabled }) => {

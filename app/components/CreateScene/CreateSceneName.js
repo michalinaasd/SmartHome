@@ -10,8 +10,6 @@ const CreateSceneName = ({ route, navigation }) => {
   const [inputValue, onChangeText] = useState("");
   const [isValid, validate] = useState(true);
 
-  console.log(isValid);
-
   return (
     <CreateSceneContainer title="Create name">
       <View style={{ flex: 1, alignItems: "center" }}>

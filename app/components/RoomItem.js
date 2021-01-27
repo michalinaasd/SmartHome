@@ -15,7 +15,9 @@ const RoomItem = ({ name, onPress, image }) => {
         }}
         source={image ? { uri: image } : roomsImages[name]}
       >
-        <SectionTitle title={name && name.charAt(0).toUpperCase() + name.slice(1)} />
+        <SectionTitle
+          title={name && name.charAt(0).toUpperCase() + name.slice(1)}
+        />
       </ImageBackground>
     </TouchableWithoutFeedback>
   );

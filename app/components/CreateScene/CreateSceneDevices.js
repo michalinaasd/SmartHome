@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AppButton from "../AppButton";
 import CreateSceneDevicesList from "./CreateSceneDevicesList";
 import CreateSceneContainer from "./CreateSceneContainer";
@@ -13,12 +13,16 @@ const CreateSceneDevices = ({ route, navigation }) => {
         onSelect={(deviceID, deviceName) =>
           setSelectedDevices([
             ...selectedDevices,
-            { id: deviceID, name: deviceName },
+            { idx: selectedDevices.length, id: deviceID, name: deviceName },
           ])
         }
         onUnselect={(deviceID) => {
           let arr = selectedDevices;
-          delete arr[deviceID];
+          for (var i = 0; i < arr.length; i++) {
+            if (arr[i]["id"] === deviceID) {
+              arr = arr.splice(i, i);
+            }
+          }
           setSelectedDevices(arr);
         }}
       />
@@ -31,6 +35,7 @@ const CreateSceneDevices = ({ route, navigation }) => {
             sceneIcon: route.params.sceneIcon,
           });
         }}
+        disabled={selectedDevices.length === 0}
       />
     </CreateSceneContainer>
   );

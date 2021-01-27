@@ -5,11 +5,16 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 const ValueSlider = (props) => {
   return (
-    <View style={styles.sliderContainer}>
+    <View
+      style={[
+        styles.sliderContainer,
+        props.icons ? { width: "80%" } : { width: "100%" },
+      ]}
+    >
       {props.icons && (
         <MaterialCommunityIcons
           name="lightbulb-outline"
-          color="rgb(0,0,0)"
+          color="rgb(255,255,255)"
           size={30}
         />
       )}
@@ -23,10 +28,10 @@ const ValueSlider = (props) => {
         maximumTrackTintColor="#777"
         onValueChange={props.onChange}
       />
-      {props.icos && (
+      {props.icons && (
         <MaterialCommunityIcons
           name="lightbulb-on"
-          color="rgb(0,0,0)"
+          color="rgb(255,255,255)"
           size={30}
         />
       )}
@@ -40,6 +45,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    width: "80%",
+    paddingHorizontal: 10,
+    paddingTop: 10,
   },
   slider: {
     marginHorizontal: 8,

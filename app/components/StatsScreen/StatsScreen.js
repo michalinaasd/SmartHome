@@ -11,8 +11,8 @@ const StatsScreen = ({ route, navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
-        <SectionTitle title="Stats" style={styles.title} />
-        <MeasuringDeviceList navigation={navigation} service={service} />
+      <SectionTitle title="Statistics" style={styles.title} />
+      <MeasuringDeviceList navigation={navigation} service={service} />
     </ScrollView>
   );
 };
@@ -24,9 +24,9 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   title: {
-      paddingTop: 20,
-      marginBottom: 32
-  }
+    paddingTop: 20,
+    marginBottom: 32,
+  },
 });
 
 export default StatsScreen;

@@ -15,21 +15,25 @@ const Rooms = ({ service, navigation }) => {
     <View style={styles.container}>
       <SectionTitle title="Rooms" />
       <View style={styles.rooms}>
-        {Object.values(data).map(({ name, id, icon }) => (
-          <RoomItem
-            key={id}
-            name={name}
-            image={icon}
-            onPress={() => {
-              navigation.navigate("room", {
-                name: name,
-                image: icon,
-                roomID: id,
-                service: service,
-              });
-            }}
-          />
-        ))}
+        {Object.values(data).map(({ name, id, icon }) => {
+          if (id) {
+            return (
+              <RoomItem
+                key={id}
+                name={name}
+                image={icon}
+                onPress={() => {
+                  navigation.navigate("room", {
+                    name: name,
+                    image: icon,
+                    roomID: id,
+                    service: service,
+                  });
+                }}
+              />
+            );
+          }
+        })}
       </View>
     </View>
   );
